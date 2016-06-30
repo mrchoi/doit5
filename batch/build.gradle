@@ -1,0 +1,71 @@
+// binary 떨구는 방법
+// ./gradlew -p batch clean installDist
+// 위의 명령을 실행하면 batch/build/install 하단에 실행 환경을 가지는 디렉토리를 생성 한다.
+
+group 'ckpush'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+ext {
+    springVersion			= '4.1.5.RELEASE'
+    springBatchVersion      = '3.0.5.RELEASE'
+    slf4jVersion			= '1.7.7'
+    logbackVersion			= '1.1.2'
+    mysqlConnectVersion		= '5.1.33'
+    dbcpVersion             = '2.1.1'
+    jodaTimeVersion			= '2.5'
+    jsonLibVersion			= '2.4'
+    lombokVersion           = '1.16.2'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'CkPush Backoffice Batch', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+mainClassName = "com.ckstack.ckpush.batch.Application"
+
+configurations {
+    includeInJar
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-core', version: springVersion
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-oxm', version: springVersion
+    compile group: 'org.springframework.batch', name: 'spring-batch-core', version: springBatchVersion
+    compile group: 'org.springframework.batch', name: 'spring-batch-infrastructure', version: springBatchVersion
+    compile group: 'mysql', name: 'mysql-connector-java', version: mysqlConnectVersion
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: dbcpVersion
+    compile group:'org.slf4j', name:'slf4j-api', version:slf4jVersion
+    compile group:'ch.qos.logback', name:'logback-classic', version:logbackVersion
+    compile group: 'joda-time', name: 'joda-time', version: jodaTimeVersion
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: jsonLibVersion, classifier: 'jdk15'
+    compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
+}

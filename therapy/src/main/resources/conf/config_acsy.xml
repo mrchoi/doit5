@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>Accessory 환경 설정</comment>
+
+    <!-- 시퀀스 타입 -->
+    <entry key="sequence_history">1</entry>
+
+
+    <!-- 서비스 이력 종류 구분 -->
+    <!-- 서비스 이력 종류 구분: 계정 관련 코드 -->
+    <entry key="code_history_account">1</entry>
+    <!-- 서비스 이력 종류 구분: 계정 추가 메시지 -->
+    <entry key="msg_add_history_account">%s 님이 %s 계정을 %s 에 추가 하였습니다.</entry>
+    <!-- 서비스 이력 종류 구분: 계정 추가 URL. account://add/{추가 시도한 member_srl}/{추가된 member_srl} 형태 -->
+    <entry key="url_add_history_account">account://add/%d/%d</entry>
+
+
+    <!-- 서비스 이력 종류 구분: 앱 관련 코드 -->
+    <entry key="code_history_app">2</entry>
+    <!-- 서비스 이력 종류 구분: 앱 추가 메시지 -->
+    <entry key="msg_add_app">%s 님이 %s 앱을 %s 에 추가 하였습니다.</entry>
+    <!-- 서비스 이력 종류 구분: 앱 추가 URL. app://add/{추가 시도한 member_srl}/{추가된 app_srl} 형태 -->
+    <entry key="url_add_app">app://add/%d/%d</entry>
+    <!-- 서비스 이력 종류 구분: 앱 삭제 메시지 -->
+    <entry key="msg_delete_app">%s 님이 %s 앱을 %s 에 삭제 하였습니다.</entry>
+    <!-- 서비스 이력 종류 구분: 앱 삭제 URL. app://add/{삭제 시도한 member_srl}/{삭제된 app_srl} 형태 -->
+    <entry key="url_delete_app">app://delete/%d/%d</entry>
+
+
+
+
+
+
+    <entry key="msg_modify_history_account">%s 님이 %s 계정의 %s 값을 %s 에서 %s 로 %s 에 변경 하였습니다.</entry>
+    <entry key="msg_delete_history_account">%s 님이 %s 계정을 %s 에 삭제 하였습니다.</entry>
+
+    <entry key="code_history_account_group">2</entry>
+    <entry key="msg_add_history_account_group">%s 님이 %s 그룹을 %s 에 추가 하였습니다.</entry>
+    <entry key="msg_modify_history_account_group">%s 님이 %s 그룹의 %s 값을 %s 에서 %s 로 %s 에 변경 하였습니다.</entry>
+    <entry key="msg_delete_history_account_group">%s 님이 %s 그룹을 %s 에 삭제 하였습니다.</entry>
+
+
+
+</properties>

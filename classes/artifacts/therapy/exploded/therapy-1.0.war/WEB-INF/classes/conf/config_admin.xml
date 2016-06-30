@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>메뉴 serial number 환경 설정</comment>
+
+
+    <!-- Admin APP serial number -->
+    <entry key="plymind.app.srl">100</entry><!-- Plymind  APP -->
+
+
+    <!-- Admin board serial number -->
+    <entry key="plymind.total.board.srl">1</entry>
+
+    <!-- Admin category serial number -->
+    <entry key="plymind.one.category.srl">1</entry><!-- 1대1 문의 category -->
+    <entry key="plymind.secret.category.srl">2</entry><!-- 비밀 게시판 category -->
+    <entry key="plymind.theme.category.srl">3</entry><!-- 테마 게시판 category -->
+    <entry key="plymind.faq.category.srl">4</entry><!-- FAQ category -->
+    <entry key="plymind.notice.category.srl">5</entry><!-- 공지사항 category -->
+    <entry key="plymind.question.category.srl">6</entry><!-- 문의 게시판 category -->
+    <entry key="plymind.group.category.srl">7</entry><!-- 단체 관리 category -->
+    <entry key="plymind.supervisor.category.srl">8</entry><!-- 슈퍼바이저 관리 category -->
+    <entry key="plymind.sentence.category.srl">9</entry><!-- 너나들이 관리 category -->
+</properties>

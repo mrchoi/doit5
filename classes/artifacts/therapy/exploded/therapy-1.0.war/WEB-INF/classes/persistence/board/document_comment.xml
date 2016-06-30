@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.DocumentCommentDao">
+    <sql id="DocumentCommentColumn">
+        app_srl,
+        board_srl,
+        category_srl,
+        document_srl,
+        head_comment_srl,
+        parent_comment_srl,
+        comment_depth,
+        comment_content,
+        like_count,
+        blame_count,
+        child_comment_count,
+        file_count,
+        block,
+        member_srl,
+        user_id,
+        user_name,
+        nick_name,
+        email_address,
+        ipaddress,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentCommentEntity" keyProperty="comment_srl" keyColumn="comment_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_document_comment (
+            <include refid="DocumentCommentColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{board_srl},
+            #{category_srl},
+            #{document_srl},
+            #{head_comment_srl},
+            #{parent_comment_srl},
+            #{comment_depth},
+            #{comment_content, jdbcType=VARCHAR},
+            #{like_count},
+            #{blame_count},
+            #{child_comment_count},
+            #{file_count},
+            #{block},
+            #{member_srl},
+            #{user_id},
+            #{user_name},
+            #{nick_name},
+            #{email_address, jdbcType=VARCHAR},
+            #{ipaddress},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_comment
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="category_srl > 0">
+                AND category_srl = #{category_srl}
+            </if>
+            <if test="document_srl > 0">
+                AND document_srl = #{document_srl}
+            </if>
+        </where>
+        ORDER BY comment_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentCommentEntity">
+        SELECT
+            comment_srl,
+            <include refid="DocumentCommentColumn" />
+        FROM tbl_document_comment
+        <where>
+            <if test="_parameter.containsKey('comment_srl') and comment_srl > 0">
+                comment_srl = #{comment_srl}
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                AND document_srl = #{document_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY comment_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_comment_srl > 0">
+            UPDATE tbl_document_comment
+            <set>
+                <if test="documentCommentEntity.app_srl > 0">app_srl = #{documentCommentEntity.app_srl},</if>
+                <if test="documentCommentEntity.board_srl > 0">board_srl = #{documentCommentEntity.board_srl},</if>
+                <if test="documentCommentEntity.category_srl > 0">category_srl = #{documentCommentEntity.category_srl},</if>
+                <if test="documentCommentEntity.document_srl > 0">document_srl = #{documentCommentEntity.document_srl},</if>
+                <if test="documentCommentEntity.head_comment_srl > 0">head_comment_srl = #{documentCommentEntity.head_comment_srl},</if>
+                <if test="documentCommentEntity.parent_comment_srl > 0">parent_comment_srl = #{documentCommentEntity.parent_comment_srl},</if>
+                <if test="documentCommentEntity.comment_content != null">comment_content = #{documentCommentEntity.comment_content},</if>
+                <if test="documentCommentEntity.like_count > 0">like_count = #{documentCommentEntity.like_count},</if>
+                <if test="documentCommentEntity.blame_count > 0">blame_count = #{documentCommentEntity.blame_count},</if>
+                <if test="documentCommentEntity.child_comment_count > 0">child_comment_count = #{documentCommentEntity.child_comment_count},</if>
+                <if test="documentCommentEntity.file_count >= 0">file_count = #{documentCommentEntity.file_count},</if>
+                <if test="documentCommentEntity.block > 0">block = #{documentCommentEntity.block},</if>
+                <if test="documentCommentEntity.member_srl > 0">member_srl = #{documentCommentEntity.member_srl},</if>
+                <if test="documentCommentEntity.user_id != null">user_id = #{documentCommentEntity.user_id},</if>
+                <if test="documentCommentEntity.user_name != null">user_name = #{documentCommentEntity.user_name},</if>
+                <if test="documentCommentEntity.nick_name != null">nick_name = #{documentCommentEntity.nick_name},</if>
+                <if test="documentCommentEntity.email_address != null">email_address = #{documentCommentEntity.email_address},</if>
+                <if test="documentCommentEntity.ipaddress != null">ipaddress = #{documentCommentEntity.ipaddress},</if>
+                <if test="documentCommentEntity.c_date > 0">c_date = #{documentCommentEntity.c_date},</if>
+                <if test="documentCommentEntity.u_date > 0">u_date = #{documentCommentEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_comment_srl > 0">
+                    comment_srl = #{target_comment_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <update id="increase" parameterType="java.util.Map">
+        <if test="target_document_srl > 0">
+            UPDATE tbl_document_comment
+            <set>
+                <if test="increase_like_count == true">like_count = like_count + 1,</if>
+                <if test="increase_blame_count == true">blame_count = blame_count + 1,</if>
+                <if test="increase_child_comment_count == true">child_comment_count = child_comment_count + 1,</if>
+                <if test="increase_file_count == true">file_count = file_count + 1,</if>
+                u_date = UNIX_TIMESTAMP()
+            </set>
+            <where>
+                <if test="target_comment_srl > 0">
+                    comment_srl = #{target_comment_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <update id="decrease" parameterType="java.util.Map">
+        <if test="target_document_srl > 0">
+            UPDATE tbl_document_comment
+            <set>
+                <if test="decrease_like_count == true">like_count = IF(like_count > 0, like_count - 1, 0),</if>
+                <if test="decrease_blame_count == true">blame_count = IF(blame_count > 0, blame_count - 1, 0),</if>
+                <if test="decrease_child_comment_count == true">child_comment_count = IF(child_comment_count > 0, child_comment_count - 1, 0),</if>
+                <if test="decrease_file_count == true">file_count = IF(file_count > 0, file_count - 1, 0),</if>
+                u_date = UNIX_TIMESTAMP()
+            </set>
+            <where>
+                <if test="target_comment_srl > 0">
+                    comment_srl = #{target_comment_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('comment_srl') and comment_srl > 0) or (_parameter.containsKey('comment_srls') and comment_srls != null and _parameter.get('comment_srls').size > 0)">
+            DELETE FROM tbl_document_comment
+            <where>
+                <if test="_parameter.containsKey('comment_srl') and comment_srl > 0">
+                    comment_srl = #{comment_srl}
+                </if>
+                <if test="_parameter.containsKey('comment_srls') and comment_srls != null and _parameter.get('comment_srls').size > 0">
+                    AND comment_srl IN
+                    <foreach item="item" index="index" collection="comment_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+    <select id="countAdvisorPresent" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_comment
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="category_srl > 0">
+                AND category_srl = #{category_srl}
+            </if>
+            <if test="member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+        </where>
+    </select>
+
+</mapper>

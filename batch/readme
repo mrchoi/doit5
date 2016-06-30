@@ -1,0 +1,14 @@
+## 설명
+batch는 backoffice를 위한 batch 작업을 구성해 둔 spring batch 소스 이다.
+각각의 batch 작업은 crontab 등의 scheduler 에서 호출 하여 사용 하면 된다.
+
+## 버전
+- 1.0
+   + 최초 버전
+
+## batch job 리스트
+### 일별 가입 회원 통계 추출
+backoffice의 일별 가입 회원 카운트를 추출 한다.
+
+## 기타
+라이센스및 기타 문의 : support@ckstack.com

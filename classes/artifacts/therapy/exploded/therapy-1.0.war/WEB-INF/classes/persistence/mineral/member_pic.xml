@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.mineral.MemberPicDao">
+    <sql id="MemberPicColumn">
+        member_srl,
+        file_srl,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="MemberPicEntity">
+        INSERT INTO tbl_member_pic (
+            <include refid="MemberPicColumn" />
+        ) VALUES (
+            #{member_srl},
+            #{file_srl},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_member_pic
+        <where>
+            <if test="member_srl > 0">
+                member_srl = #{member_srl}
+            </if>
+            <if test="file_srl > 0">
+                AND file_srl = #{file_srl}
+            </if>
+        </where>
+        ORDER BY file_srl DESC, member_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberPicEntity">
+        SELECT
+            <include refid="MemberPicColumn" />
+        FROM
+            tbl_member_pic
+        <where>
+            <if test="member_srl > 0">
+                member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="file_srl > 0">
+                AND file_srl = #{file_srl}
+            </if>
+            <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                AND file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY file_srl DESC, member_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getAndFile" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberPicAndFileEntity">
+        SELECT
+            A.member_srl as member_srl,
+            A.file_srl as file_srl,
+            A.c_date as c_date,
+            B.orig_name as orig_name,
+            B.file_size as file_size,
+            B.file_path as file_path,
+            B.file_url as file_url,
+            B.width as width,
+            B.height as height,
+            B.thumb_path as thumb_path,
+            B.thumb_url as thumb_url,
+            B.thumb_width as thumb_width,
+            B.thumb_height as thumb_height,
+            B.ipaddress as ipaddress,
+            B.deleted as deleted,
+            B.c_date as file_c_date,
+            B.u_date as u_date
+        FROM
+            tbl_member_pic A
+        LEFT JOIN
+            tbl_profile_pic B
+        ON
+            A.file_srl = B.file_srl
+        <where>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND A.member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="deleted > 0">
+                AND B.deleted = #{deleted}
+            </if>
+        </where>
+        ORDER BY A.member_srl DESC, A.file_srl ASC
+    </select>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="member_srl > 0 or file_srl > 0">
+            DELETE FROM tbl_member_pic
+            <where>
+                <if test="member_srl > 0">
+                    member_srl = #{member_srl}
+                </if>
+                <if test="file_srl > 0">
+                    AND file_srl = #{file_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

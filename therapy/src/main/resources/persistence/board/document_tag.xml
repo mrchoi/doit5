@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.DocumentTagDao">
+    <sql id="DocumentTagColumn">
+        document_srl,
+        tag_srl,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentTagEntity">
+        INSERT INTO tbl_document_tag (
+            <include refid="DocumentTagColumn" />
+        ) VALUES (
+            #{document_srl},
+            #{tag_srl},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentTagEntity">
+        SELECT
+            <include refid="DocumentTagColumn" />
+        FROM tbl_document_tag
+        <where>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                AND tag_srl = #{tag_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY tag_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countFullInfo" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_tag A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        <where>
+            <if test="tag_srl > 0">
+                A.tag_srl = #{tag_srl}
+            </if>
+            <if test="tag_srls != null and _parameter.get('tag_srls').size > 0">
+                AND A.tag_srl IN
+                <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="document_srl > 0">
+                A.document_srl = #{document_srl}
+            </if>
+            <if test="document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="app_srl > 0">
+                AND B.app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND B.board_srl = #{board_srl}
+            </if>
+            <if test="board_srls != null and _parameter.get('board_srls').size > 0">
+                AND B.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="category_srl > 0">
+                AND B.category_srl = #{category_srl}
+            </if>
+            <if test="category_srls != null and _parameter.get('category_srls').size > 0">
+                AND B.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="secret == -2 or secret == -1 or secret > 0">
+                AND B.secret = #{secret}
+            </if>
+            <if test="secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        ORDER BY A.tag_srl DESC
+    </select>
+
+    <select id="getFullInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentTagFullEntity">
+        SELECT
+            A.document_srl as document_srl,
+            A.tag_srl as tag_srl,
+            A.c_date as tag_c_date,
+            B.app_srl as app_srl,
+            B.board_srl as board_srl,
+            B.category_srl as category_srl,
+            B.document_title as document_title,
+            B.document_content as document_content,
+            B.read_count as read_count,
+            B.like_count as like_count,
+            B.blame_count as blame_count,
+            B.comment_count as comment_count,
+            B.file_count as file_count,
+            B.outer_link as outer_link,
+            B.secret as secret,
+            B.block as block,
+            B.allow_comment as allow_comment,
+            B.allow_notice as allow_notice,
+            B.list_order as list_order,
+            B.template_srl as template_srl,
+            B.template_extra as template_extra,
+            B.member_srl as member_srl,
+            B.user_id as user_id,
+            B.user_name as user_name,
+            B.nick_name as nick_name,
+            B.email_address as email_address,
+            B.document_password as document_password,
+            B.ipaddress as ipaddress,
+            B.c_date as c_date,
+            B.u_date as u_date
+        FROM tbl_document_tag A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        <where>
+            <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                A.tag_srl = #{tag_srl}
+            </if>
+            <if test="_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0">
+                AND A.tag_srl IN
+                <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                AND A.document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND B.app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND B.board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND B.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND B.category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND B.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_title') and document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                AND B.secret = #{secret}
+            </if>
+            <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('block') and block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="_parameter.containsKey('allow_comment') and allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="_parameter.containsKey('allow_notice') and allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <!--<foreach item="item" index="key" collection="sort" open="ORDER BY A.tag_srl DESC, " separator=",">-->
+                <foreach item="item" index="key" collection="sort" open="ORDER BY " separator=",">
+                    <choose>
+                        <when test="key == 'tag_srl' or key == 'document_srl'">
+                            A.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.tag_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countFullLinkInfo" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_tag A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        LEFT JOIN tbl_document_link C
+        ON B.document_srl = C.document_srl
+        <where>
+            <if test="tag_srl > 0">
+                A.tag_srl = #{tag_srl}
+            </if>
+            <if test="tag_srls != null and _parameter.get('tag_srls').size > 0">
+                AND A.tag_srl IN
+                <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="document_srl > 0">
+                A.document_srl = #{document_srl}
+            </if>
+            <if test="document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="app_srl > 0">
+                AND C.app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND C.board_srl = #{board_srl}
+            </if>
+            <if test="board_srls != null and _parameter.get('board_srls').size > 0">
+                AND C.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="category_srl > 0">
+                AND C.category_srl = #{category_srl}
+            </if>
+            <if test="category_srls != null and _parameter.get('category_srls').size > 0">
+                AND C.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="secret == -2 or secret == -1 or secret > 0">
+                AND B.secret = #{secret}
+            </if>
+            <if test="secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        ORDER BY A.tag_srl DESC
+    </select>
+
+    <select id="getFullLinkInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentTagLinkFullEntity">
+        SELECT
+            A.tag_srl as tag_srl,
+            A.c_date as tag_c_date,
+            C.document_link_srl as document_link_srl,
+            C.document_srl as document_srl,
+            C.app_srl as app_srl,
+            C.board_srl as board_srl,
+            C.category_srl as category_srl,
+            C.list_order as list_order,
+            C.c_date as c_date,
+            B.app_srl as document_app_srl,
+            B.board_srl as document_board_srl,
+            B.category_srl as document_category_srl,
+            B.document_title as document_title,
+            B.document_content as document_content,
+            B.read_count as read_count,
+            B.like_count as like_count,
+            B.blame_count as blame_count,
+            B.comment_count as comment_count,
+            B.file_count as file_count,
+            B.outer_link as outer_link,
+            B.secret as secret,
+            B.block as block,
+            B.allow_comment as allow_comment,
+            B.allow_notice as allow_notice,
+            B.list_order as document_list_order,
+            B.template_srl as template_srl,
+            B.template_extra as template_extra,
+            B.member_srl as member_srl,
+            B.user_id as user_id,
+            B.user_name as user_name,
+            B.nick_name as nick_name,
+            B.email_address as email_address,
+            B.document_password as document_password,
+            B.ipaddress as ipaddress,
+            B.c_date as document_c_date,
+            B.u_date as u_date
+        FROM tbl_document_tag A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        LEFT JOIN tbl_document_link C
+        ON B.document_srl = C.document_srl
+        <where>
+            <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                A.tag_srl = #{tag_srl}
+            </if>
+            <if test="_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0">
+                AND A.tag_srl IN
+                <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                AND A.document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND C.app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND C.board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND C.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND C.category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND C.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_title') and document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                AND B.secret = #{secret}
+            </if>
+            <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('block') and block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="_parameter.containsKey('allow_comment') and allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="_parameter.containsKey('allow_notice') and allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY " separator=",">
+                    <choose>
+                        <when test="key == 'tag_srl' or key == 'document_srl'">
+                            A.${key} ${item}
+                        </when>
+                        <when test="key == 'document_link_srl' or key == 'app_srl' or key == 'board_srl' or key == 'category_srl'">
+                            C.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY C.document_link_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('document_srl') and document_srl > 0) or (_parameter.containsKey('tag_srl') and tag_srl > 0)">
+            DELETE FROM tbl_document_tag
+            <where>
+                <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                    document_srl = #{document_srl}
+                </if>
+                <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                    AND tag_srl = #{tag_srl}
+                </if>
+                <if test="_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0">
+                    AND tag_srl IN
+                    <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

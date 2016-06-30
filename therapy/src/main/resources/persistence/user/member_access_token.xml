@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.user.MemberAccessTokenDao">
+    <sql id="MemberAccessTokenColumn">
+        member_srl,
+        app_srl,
+        access_token,
+        token_expire,
+        user_data,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="MemberAccessTokenEntity" keyProperty="token_srl" keyColumn="token_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_member_access_token (
+            <include refid="MemberAccessTokenColumn" />
+        ) VALUES (
+            #{member_srl},
+            #{app_srl},
+            #{access_token},
+            #{token_expire},
+            #{user_data, jdbcType=LONGVARCHAR},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_member_access_token
+        <where>
+            <if test="member_srl > 0">
+                member_srl = #{member_srl}
+            </if>
+            <if test="app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="access_token != null">
+                AND access_token = #{access_token}
+            </if>
+            <if test="token_expire > 0">
+                AND token_expire &gt;= #{token_expire}
+            </if>
+        </where>
+        ORDER BY token_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberAccessTokenEntity">
+        SELECT
+            token_srl,
+            <include refid="MemberAccessTokenColumn" />
+        FROM tbl_member_access_token
+        <where>
+            <if test="_parameter.containsKey('token_srl') and token_srl > 0">
+                token_srl = #{token_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('token_srls') and token_srls != null and _parameter.get('token_srls').size > 0">
+                AND token_srl IN
+                <foreach item="item" index="index" collection="token_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('access_token') and access_token != null">
+                AND access_token = #{access_token}
+            </if>
+            <if test="_parameter.containsKey('token_expire') and token_expire > 0">
+                AND token_expire &gt;= #{token_expire}
+            </if>
+        </where>
+        ORDER BY token_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_token_srl > 0 or target_access_token != null or target_app_srl > 0">
+            UPDATE tbl_member_access_token
+            <set>
+                <if test="memberAccessTokenEntity.member_srl > 0">member_srl = #{memberAccessTokenEntity.member_srl},</if>
+                <if test="memberAccessTokenEntity.access_token != null">access_token = #{memberAccessTokenEntity.access_token},</if>
+                <if test="memberAccessTokenEntity.token_expire > 0">token_expire = #{memberAccessTokenEntity.token_expire},</if>
+                <if test="memberAccessTokenEntity.user_data != null">user_data = #{memberAccessTokenEntity.user_data},</if>
+                <if test="memberAccessTokenEntity.c_date > 0">c_date = #{memberAccessTokenEntity.c_date},</if>
+                <if test="memberAccessTokenEntity.u_date > 0">u_date = #{memberAccessTokenEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_token_srl > 0">
+                    token_srl = #{target_token_srl}
+                </if>
+                <if test="target_access_token != null">
+                    AND access_token = #{target_access_token}
+                </if>
+                <if test="target_app_srl > 0">
+                    AND target_app_srl = #{target_app_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('token_srl') and token_srl > 0) or (_parameter.containsKey('access_token') and access_token != null) or (_parameter.containsKey('app_srl') and app_srl > 0)">
+            DELETE FROM tbl_member_access_token
+            <where>
+                <if test="_parameter.containsKey('token_srl') and token_srl > 0">
+                    token_srl = #{token_srl}
+                </if>
+                <if test="_parameter.containsKey('access_token') and access_token != null">
+                    AND access_token = #{access_token}
+                </if>
+                <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                    app_srl = #{app_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

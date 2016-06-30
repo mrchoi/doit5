@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.ProductDao">
+    <select id="getContentsList" parameterType="java.util.Map" resultMap="com.ckpush.result.ProductEntity">
+        SELECT contents_srl, title
+        FROM tbl_plymind_contents
+        <where>
+            <if test="kind_srl > 0">
+                AND kind = #{kind_srl}
+            </if>
+        </where>
+        ORDER BY contents_srl ASC
+    </select>
+
+    <select id="getProductList" parameterType="java.util.Map" resultMap="com.ckpush.result.ProductEntity">
+        SELECT A.contents_srl AS contents_srl,
+          A.kind AS kind,
+          A.title AS title,
+          A.description AS description,
+          A.contents AS contents,
+          A.advice_time AS advice_time,
+          A.method AS method,
+          B.product_srl AS product_srl,
+          B.advice_type AS advice_type,
+          B.advice_period AS advice_period,
+          B.advice_number AS advice_number,
+          B.advice_price AS advice_price,
+          B.benefit AS benefit
+          FROM tbl_plymind_contents A, tbl_plymind_product B
+          <where>
+              A.contents_srl = B.contents_srl
+              <if test="kind_srl > 0">
+                  AND A.kind = #{kind_srl}
+              </if>
+              <if test="_parameter.containsKey('title') and title != null and title != ''">
+                  AND A.title LIKE CONCAT('%', CONCAT('', #{title}, '%'), '')
+              </if>
+          </where>
+          ORDER BY contents_srl ASC, product_srl ASC
+    </select>
+
+    <select id="getProductInfoBySrl" parameterType="java.util.Map" resultMap="com.ckpush.result.ProductEntity">
+        SELECT A.contents_srl AS contents_srl,
+        A.kind AS kind,
+        A.title AS title,
+        A.description AS description,
+        A.contents AS contents,
+        A.advice_time AS advice_time,
+        A.method AS method,
+        B.product_srl AS product_srl,
+        B.advice_type AS advice_type,
+        B.advice_period AS advice_period,
+        B.advice_number AS advice_number,
+        B.advice_price AS advice_price,
+        B.benefit AS benefit
+        FROM tbl_plymind_contents A, tbl_plymind_product B
+        <where>
+            A.contents_srl = B.contents_srl
+            AND product_srl = #{product_srl}
+        </where>
+    </select>
+
+    <select id="getAdvicedomainList" parameterType="java.util.Map" resultMap="com.ckpush.result.AdvicedomainEntity">
+        SELECT advicedomain_srl, advicedomain_type, member_srl, advice_domain
+        FROM tbl_plymind_advicedomain
+        <where>
+            <if test="_parameter.containsKey('advicedomain_type') and advicedomain_type > 0">
+                AND advicedomain_type = #{advicedomain_type}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advice_domain') and advice_domain > 0">
+                AND advice_domain = #{advice_domain}
+            </if>
+        </where>
+    </select>
+</mapper>

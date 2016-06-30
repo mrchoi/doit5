@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.MyadviceDao">
+
+    <insert id="addDiary" parameterType="DiaryEntity" keyProperty="diary_srl" keyColumn="diary_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_plymind_diary (
+            member_srl, application_srl, application_group, mind_diary, c_date, u_date
+        ) VALUES (
+            #{member_srl}, #{application_srl}, #{application_group}, #{mind_diary}, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()
+        )
+    </insert>
+
+    <insert id="addPlymindDocument" parameterType="PlymindDocumentEntity" keyProperty="document_srl" keyColumn="document_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_plymind_document (
+            application_srl, application_group, advisor_comment, checkup_file_srl, reply_file_srl, result_file_srl, checkup_date, reply_date, result_date, c_date
+        ) VALUES (
+            #{application_srl}, #{application_group}, #{advisor_comment}, #{checkup_file_srl}, #{reply_file_srl}, #{result_file_srl}, #{checkup_date}, #{reply_date}, #{result_date}, UNIX_TIMESTAMP()
+        )
+    </insert>
+
+    <update id="modifyPlymindDocument" parameterType="java.util.Map">
+        UPDATE tbl_plymind_document
+        <set>
+            <if test="plymindDocumentEntity.advisor_comment != null">advisor_comment = #{plymindDocumentEntity.advisor_comment},</if>
+            <if test="plymindDocumentEntity.checkup_file_srl > 0">checkup_file_srl = #{plymindDocumentEntity.checkup_file_srl},</if>
+            <if test="plymindDocumentEntity.reply_file_srl > 0">reply_file_srl = #{plymindDocumentEntity.reply_file_srl},</if>
+            <if test="plymindDocumentEntity.result_file_srl > 0">result_file_srl = #{plymindDocumentEntity.result_file_srl},</if>
+            <if test="plymindDocumentEntity.checkup_date > 0">checkup_date = #{plymindDocumentEntity.checkup_date},</if>
+            <if test="plymindDocumentEntity.reply_date > 0">reply_date = #{plymindDocumentEntity.reply_date},</if>
+            <if test="plymindDocumentEntity.result_date > 0">result_date = #{plymindDocumentEntity.result_date},</if>
+        </set>
+        <where>
+            document_srl = #{document_srl}
+        </where>
+    </update>
+
+    <select id="getAddressInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.AddressEntity">
+        SELECT address_srl, application_group, receive_name, receive_phone, receive_address, c_date, u_date
+        FROM tbl_plymind_address
+        <where>
+            application_group = #{application_group}
+        </where>
+    </select>
+
+    <select id="getDiary" parameterType="java.util.Map" resultMap="com.ckpush.result.DiaryEntity">
+        SELECT diary_srl, application_group, mind_diary, c_date, u_date
+        FROM tbl_plymind_diary
+        <where>
+            1=1
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+        </where>
+        ORDER BY diary_srl DESC
+    </select>
+
+    <select id="getPush" parameterType="java.util.Map" resultMap="com.ckpush.result.PushEntity">
+        SELECT push_srl, application_srl, application_group, push_contents, push_date1, push_date2
+        FROM tbl_plymind_push
+        <where>
+            A.application_group = #{application_group}
+        </where>
+        ORDER BY push_date1 DESC
+    </select>
+
+    <select id="countPush" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(A.application_srl) as cnt
+        FROM tbl_plymind_application A, tbl_plymind_noti B
+        <where>
+            A.application_srl = B.application_srl AND B.noti_type = 4
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND A.application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getPushList" parameterType="java.util.Map" resultMap="com.ckpush.result.PushEntity">
+        SELECT
+        A.application_srl AS application_srl,
+        A.application_group AS application_group,
+        A.application_number AS application_number,
+        A.push_date AS push_date,
+        A.push_time AS push_time,
+        A.application_status AS application_status,
+        B.noti_srl AS noti_srl,
+        B.push_text AS push_text,
+        B.book_time AS book_time
+        FROM tbl_plymind_application A, tbl_plymind_noti B
+        <where>
+            A.application_srl = B.application_srl AND B.noti_type = 4
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND A.application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.application_number ASC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countAddPush" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(A.application_srl) as cnt
+        FROM tbl_plymind_application A
+        LEFT JOIN tbl_plymind_noti B
+        ON A.application_srl = B.application_srl AND B.noti_type = 4
+        <where>
+            1=1
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getAddPushList" parameterType="java.util.Map" resultMap="com.ckpush.result.PushEntity">
+        SELECT
+        A.application_srl AS application_srl,
+        A.application_group AS application_group,
+        A.application_number AS application_number,
+        A.push_date AS push_date,
+        A.push_time AS push_time,
+        A.application_status AS application_status,
+        B.noti_srl AS noti_srl,
+        B.push_text AS push_text,
+        B.book_time AS book_time
+        FROM tbl_plymind_application A
+        LEFT JOIN tbl_plymind_noti B
+        ON A.application_srl = B.application_srl AND B.noti_type = 4
+        <where>
+            1=1
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND A.application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.application_number ASC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getPushInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.PushEntity">
+        SELECT
+        A.application_srl AS application_srl,
+        A.application_group AS application_group,
+        A.application_number AS application_number,
+        A.push_date AS push_date,
+        A.push_time AS push_time,
+        A.application_status AS application_status,
+        B.noti_srl AS noti_srl,
+        B.push_text AS push_text,
+        B.book_time AS book_time
+        FROM tbl_plymind_application A
+        LEFT JOIN tbl_plymind_noti B
+        ON A.application_srl = B.application_srl AND B.noti_type = 4
+        <where>
+            A.application_srl = #{application_srl}
+        </where>
+    </select>
+
+    <select id="getMessageList" parameterType="java.util.Map" resultMap="com.ckpush.result.PushEntity">
+        SELECT noti_srl, application_srl, application_group, push_text, book_time, noti_time1, noti_time2
+        FROM tbl_plymind_noti
+        <where>
+            noti_type = 3
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('push_status') and push_status > 0">
+                AND push_status = #{push_status}
+            </if>
+        </where>
+        ORDER BY noti_srl DESC
+    </select>
+
+    <select id="getPlymindDocument" parameterType="java.util.Map" resultMap="com.ckpush.result.PlymindDocumentEntity">
+        SELECT document_srl, application_srl, application_group, advisor_comment, checkup_file_srl, reply_file_srl, result_file_srl, checkup_date, reply_date, result_date, c_date
+        FROM tbl_plymind_document
+        <where>
+            1=1
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+        </where>
+        ORDER BY c_date DESC
+    </select>
+
+    <select id="getPlymindDocumentD" parameterType="java.util.Map" resultMap="com.ckpush.result.PlymindDocumentEntity">
+        SELECT document_srl, application_srl, application_group, advisor_comment, checkup_file_srl, reply_file_srl, result_file_srl, checkup_date, reply_date, result_date, c_date
+        FROM tbl_plymind_document
+        <where>
+            <if test="document_srl > 0">
+                document_srl = #{document_srl}
+            </if>
+            <!--<if test="application_srl > 0">
+                application_srl = #{application_srl}
+            </if>-->
+        </where>
+        ORDER BY c_date DESC
+    </select>
+
+</mapper>

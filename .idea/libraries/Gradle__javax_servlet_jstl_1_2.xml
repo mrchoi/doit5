@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: javax.servlet:jstl:1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

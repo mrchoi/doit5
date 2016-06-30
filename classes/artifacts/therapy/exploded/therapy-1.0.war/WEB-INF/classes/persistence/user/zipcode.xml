@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.user.ZipCodeDao">
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.ZipCodeEntity">
+        SELECT
+            zipcode_srl,
+            concat(sido,sigungu,doromyung,konmulbunho_bonbun, konmul_myung)as full
+        FROM tbl_zipcode
+        <where>
+            CONCAT(doromyung,konmulbunho_bonbun,konmul_myung) LIKE CONCAT('%',#{query},'%')
+        </where>
+    </select>
+
+    <select id="getjibun" parameterType="java.util.Map" resultMap="com.ckpush.result.ZipCodeEntity">
+        SELECT
+            zipcode_srl,
+            concat(sido,sigungu,bubjungdong,jibunbonbun,konmul_myung)as full
+        FROM tbl_zipcode
+        <where>
+            CONCAT(bubjungdong,jibunbonbun,konmul_myung) LIKE CONCAT('%',#{query},'%')
+        </where>
+    </select>
+
+</mapper>

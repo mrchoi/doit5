@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.AppTemplateDao">
+    <sql id="AppTemplateColumn">
+        app_srl,
+        template_srl,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="AppTemplateEntity">
+        INSERT INTO tbl_app_template (
+            <include refid="AppTemplateColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{template_srl},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_app_template
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="template_srl > 0">
+                AND template_srl = #{template_srl}
+            </if>
+        </where>
+        ORDER BY template_srl DESC
+    </select>
+
+    <select id="countTemplateUsingApp" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT template_srl, count(template_srl) as cnt
+        FROM tbl_app_template
+        <where>
+            <if test="_parameter.containsKey('template_srls') and template_srls != null and _parameter.get('template_srls').size > 0">
+                template_srl IN
+                <foreach item="item" index="index" collection="template_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY template_srl
+        ORDER BY template_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.AppTemplateEntity">
+        SELECT <include refid="AppTemplateColumn" />
+        FROM tbl_app_template
+        <where>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('template_srl') and template_srl > 0">
+                AND template_srl = #{template_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY template_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('template_srl') and template_srl > 0) or (_parameter.containsKey('app_srl') and app_srl > 0) or (_parameter.containsKey('app_srls') and app_srls != null and _parameter.get('app_srls').size > 0)">
+            DELETE FROM tbl_app_template
+            <where>
+                <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                    app_srl = #{app_srl}
+                </if>
+                <if test="_parameter.containsKey('app_srls') and app_srls != null and _parameter.get('app_srls').size > 0">
+                    AND app_srl IN
+                    <foreach item="item" index="index" collection="app_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="_parameter.containsKey('template_srl') and template_srl > 0">
+                    AND template_srl = #{template_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

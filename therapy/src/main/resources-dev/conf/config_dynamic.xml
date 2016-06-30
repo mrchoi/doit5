@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>설치되는 서버에 따라 바뀔 수 있는 환경 값들</comment>
+
+    <!-- backoffice 버전 -->
+    <entry key="backoffice_version">BackOffice 2.2.1</entry>
+
+
+    <!-- file server(이미지나 기타 파일에 접근 할 수 있는) domain -->
+    <!--<entry key="image_server_host">http://dev.i-mobilepark.com:8010</entry>-->
+
+    <entry key="image_server_host">http://dev.i-mobilepark.com:8888</entry>
+
+    <!-- resource(css, js, image 등등) 설정 -->
+    <!--
+        resource가 존재하는 위치. 1이면 was내에 존재, 그외의 값이면 외부에 존재. 1이면 resource_path 앞에 was contextPath가 붙는다.
+        was내에 resource 존재하는 것은 resource를 was instance 내부에 옮기면 되고, 아직 resource를 옮기지 않았음.
+    -->
+    <entry key="resource_location">2</entry>
+    <!--
+        어드민 resource에 접근하기 위한 url path header.
+        resource_path 는 smart admin의 js/app.config.js 파일 에서
+        $.sound_path 와도 맞추어 주어야 함.
+    -->
+    <entry key="resource_path">/adm/</entry>
+    <!--
+        사용자 서비스 용도 페이지 resource에 접근하기 위한 url path header.
+    -->
+    <entry key="svc_resource_path">/svc/</entry>
+
+
+    <!-- 파일 저장 경로 -->
+    <!-- GCM, APNs Push: Push 메시지에서 사용하는 이미지의 저장 경로 -->
+    <!--<entry key="push_message_image_path">/Users/dhkim94/Documents/develop/tools/apache-tomcat-8.0.18/webapps/1/files/push/</entry>-->
+    <entry key="push_message_image_path">/home/plymind/tomcat/webapps/ROOT/upload/files/push/</entry>
+
+    <!-- 리포지토리 파일이 저장되는 경로 -->
+    <!--<entry key="file_repository_path">/Users/dhkim94/Documents/develop/tools/apache-tomcat-8.0.18/webapps/1/files/repository/</entry>-->
+    <entry key="file_repository_path">/home/plymind/tomcat/webapps/ROOT/upload/files/repository/</entry>
+
+    <!-- 게시물이 저장되는 경로 -->
+    <!--<entry key="document_file_path">/Users/dhkim94/Documents/develop/tools/apache-tomcat-8.0.18/webapps/1/files/document/</entry>-->
+
+    <!-- <entry key="document_file_path">/data/repository/ckpush/files/document/</entry>-->
+    <entry key="document_file_path">/home/plymind/tomcat/webapps/ROOT/upload/files/document/</entry>
+
+</properties>

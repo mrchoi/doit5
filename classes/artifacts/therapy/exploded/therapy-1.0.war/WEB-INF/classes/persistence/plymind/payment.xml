@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.PaymentDao">
+
+    <sql id="PaymentColumn">
+        member_srl,
+        product_srl,
+        application_group,
+        payment_name,
+        payment_phone,
+        price,
+        receipt_kind,
+        receipt_phone,
+        payment_status,
+        refund_bank,
+        refund_account,
+        refund_name,
+        reporting_date,
+        payment_date,
+        refund_req_date,
+        refund_date
+    </sql>
+
+    <insert id="add" parameterType="PaymentEntity" keyProperty="payment_srl" keyColumn="payment_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_plymind_payment (
+          <include refid="PaymentColumn" />
+        ) VALUES (
+            #{member_srl},
+            #{product_srl},
+            #{application_group},
+            #{payment_name},
+            #{payment_phone},
+            #{price},
+            #{receipt_kind},
+            #{receipt_phone},
+            #{payment_status},
+            #{refund_bank},
+            #{refund_account},
+            #{refund_name},
+            #{reporting_date},
+            #{payment_date},
+            #{refund_req_date},
+            #{refund_date}
+        )
+    </insert>
+
+    <select id="countPayment" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(DISTINCT(A.application_group)) as cnt
+        FROM tbl_plymind_payment A, tbl_plymind_application B
+        <where>
+            A.application_group = B.application_group
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('payment_statues') and payment_statues != null and _parameter.get('payment_statues').size > 0">
+                AND A.payment_status IN
+                <foreach item="item" index="index" collection="payment_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND B.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND A.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('payment_name') and payment_name != null">
+                AND A.payment_name LIKE CONCAT('', CONCAT('%', #{payment_name}, ''), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getPaymentList" parameterType="java.util.Map" resultMap="com.ckpush.result.PaymentEntity">
+        SELECT
+        A.payment_srl AS payment_srl,
+        A.member_srl AS member_srl,
+        A.product_srl AS product_srl,
+        A.application_group AS application_group,
+        A.payment_name AS payment_name,
+        A.payment_phone AS payment_phone,
+        A.price AS price,
+        A.receipt_kind AS receipt_kind,
+        A.receipt_phone AS receipt_phone,
+        A.payment_status AS payment_status,
+        A.refund_bank AS refund_bank,
+        A.refund_account AS refund_account,
+        A.refund_name AS refund_name,
+        A.reporting_date AS reporting_date,
+        A.cancel_date AS cancel_date,
+        A.payment_date AS payment_date,
+        A.refund_req_date AS refund_req_date,
+        A.refund_date AS refund_date
+        FROM tbl_plymind_payment A, tbl_plymind_application B
+        <where>
+            A.application_group = B.application_group
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND A.application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('payment_statues') and payment_statues != null and _parameter.get('payment_statues').size > 0">
+                AND A.payment_status IN
+                <foreach item="item" index="index" collection="payment_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND B.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND A.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('payment_name') and payment_name != null">
+                AND A.payment_name LIKE CONCAT('', CONCAT('%', #{payment_name}, ''), '%')
+            </if>
+        </where>
+        GROUP BY payment_srl,<include refid="PaymentColumn" />
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.payment_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="payment" parameterType="java.util.Map">
+        UPDATE tbl_plymind_payment
+        <set>
+            payment_status = 1,
+            payment_date = UNIX_TIMESTAMP()
+        </set>
+        <where>
+            payment_srl = #{payment_srl}
+        </where>
+    </update>
+
+    <update id="refundReq" parameterType="java.util.Map">
+        UPDATE tbl_plymind_payment
+        <set>
+            refund_bank = #{paymentEntity.refund_bank},
+            refund_account = #{paymentEntity.refund_account},
+            refund_name = #{paymentEntity.refund_name},
+            payment_status = 2,
+            refund_req_date = UNIX_TIMESTAMP()
+        </set>
+        <where>
+            payment_srl = #{paymentEntity.payment_srl}
+        </where>
+    </update>
+
+    <update id="refund" parameterType="java.util.Map">
+        UPDATE tbl_plymind_payment
+        <set>
+            payment_status = 3,
+            refund_date = UNIX_TIMESTAMP()
+        </set>
+        <where>
+            payment_srl = #{paymentEntity.payment_srl}
+        </where>
+    </update>
+
+    <update id="cancel" parameterType="java.util.Map">
+        UPDATE tbl_plymind_payment
+        <set>
+            payment_status = 4,
+            cancel_date = UNIX_TIMESTAMP()
+        </set>
+        <where>
+            payment_srl = #{payment_srl}
+        </where>
+    </update>
+
+    <select id="getPaymentInfoBySrl" parameterType="java.util.Map" resultMap="com.ckpush.result.PaymentEntity">
+        SELECT
+        A.contents_srl AS contents_srl,
+        A.kind AS kind,
+        A.title AS title,
+        B.product_srl AS product_srl,
+        B.advice_type AS advice_type,
+        B.advice_period AS advice_period,
+        B.advice_number AS advice_number,
+        C.payment_srl AS payment_srl,
+        C.member_srl AS member_srl,
+        C.product_srl AS product_srl,
+        C.application_group AS application_group,
+        C.payment_name AS payment_name,
+        C.payment_phone AS payment_phone,
+        C.price AS price,
+        C.receipt_kind AS receipt_kind,
+        C.receipt_phone AS receipt_phone,
+        C.payment_status AS payment_status,
+        C.refund_bank AS refund_bank,
+        C.refund_account AS refund_account,
+        C.refund_name AS refund_name,
+        C.reporting_date AS reporting_date,
+        C.payment_date AS payment_date,
+        C.refund_req_date AS refund_req_date,
+        C.refund_date AS refund_date
+        FROM tbl_plymind_contents A, tbl_plymind_product B, tbl_plymind_payment C
+        <where>
+            A.contents_srl = B.contents_srl
+            AND B.product_srl = C.product_srl
+            AND C.payment_srl = #{payment_srl}
+        </where>
+    </select>
+</mapper>

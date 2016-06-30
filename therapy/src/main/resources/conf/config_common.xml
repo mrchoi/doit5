@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>공통 환경 설정</comment>
+
+
+    <!-- Backoffice 종류 -->
+    <!-- 회원 형태 ON/OFF. 만일 회원 형태로 서비스 하려면 1로 한다. 비회원 형태면 1이 아니거나 backoffice_by_member_support 자체가 없으면 된다. -->
+    <entry key="backoffice_by_member_support">1</entry>
+
+
+    <!-- access token 부가 정보 저장소 구별. 1이면 RDBMS에 저장, 2이면 redis에 저장 -->
+    <entry key="access_token_repository">1</entry>
+
+
+    <!-- 공통 JSON -->
+    <!-- 공통 JSON: tid -->
+    <entry key="json_tid">ck_tid</entry>
+    <!-- 공통 JSON: error -->
+    <entry key="json_error">ck_error</entry>
+    <!-- 공통 JSON: message -->
+    <entry key="json_message">ck_message</entry>
+    <!-- 공통 JSON: reason -->
+    <entry key="json_reason">ck_reason</entry>
+    <!-- 공통 JSON: request_uri -->
+    <entry key="json_request_uri">ck_request_uri</entry>
+    <!-- 공통 JSON: method -->
+    <entry key="json_method">ck_method</entry>
+
+
+    <!-- 비구조화 JSON -->
+    <!-- 비구조화 JSON: push_id -->
+    <entry key="json_push_id">push_id</entry>
+
+
+    <!-- jQuery datatable request parameter -->
+    <!-- jQuery datatable request parameter: column 구분 header -->
+    <entry key="dtreq_column_header">columns[</entry>
+    <!-- jQuery datatable request parameter: column name attribute -->
+    <entry key="dtreq_attr_name">name</entry>
+    <!-- jQuery datatable request parameter: column data attribute -->
+    <entry key="dtreq_attr_data">data</entry>
+    <!-- jQuery datatable request parameter: column searchable attribute -->
+    <entry key="dtreq_attr_searchable">searchable</entry>
+    <!-- jQuery datatable request parameter: column orderable attribute -->
+    <entry key="dtreq_attr_orderable">orderable</entry>
+    <!-- jQuery datatable request parameter: column search value attribute -->
+    <entry key="dtreq_attr_search_value">search_value</entry>
+    <!-- jQuery datatable request parameter: column search regex attribute -->
+    <entry key="dtreq_attr_search_regex">search_regex</entry>
+    <!-- jQuery datatable request parameter: draw -->
+    <entry key="dtreq_draw">draw</entry>
+    <!-- jQuery datatable request parameter: start -->
+    <entry key="dtreq_start">start</entry>
+    <!-- jQuery datatable request parameter: length -->
+    <entry key="dtreq_length">length</entry>
+    <!-- jQuery datatable request parameter: search_value -->
+    <entry key="dtreq_search_value">search_value</entry>
+    <!-- jQuery datatable request parameter: search_regex -->
+    <entry key="dtreq_search_regex">search_regex</entry>
+    <!-- jQuery datatable request parameter: order 구분 header -->
+    <entry key="dtreq_order_header">order[</entry>
+
+    <!-- jQuery datatable response parameter -->
+    <!-- jQuery datatable response parameter: table data -->
+    <entry key="dtresp_data">data</entry>
+    <!-- jQuery datatable response parameter: draw -->
+    <entry key="dtresp_draw">draw</entry>
+    <!-- jQuery datatable response parameter: table total row count -->
+    <entry key="dtresp_total_row">recordsTotal</entry>
+    <!-- jQuery datatable response parameter: table filter row count -->
+    <entry key="dtresp_filter_row">recordsFiltered</entry>
+    <!-- jQuery datatable response parameter: row id -->
+    <entry key="dtresp_row_id">DT_RowId</entry>
+
+
+    <!-- GCM, APNs Push -->
+    <!-- Push 타겟: 앱에 가입된 전체 단말 -->
+    <entry key="push_target_all_in_app">__all</entry>
+    <!-- Push 타겟: 앱에 가입된 단말 하나 -->
+    <entry key="push_target_unit_in_app">__unit</entry>
+
+
+    <!-- 유저 그룹 권한 -->
+    <!-- 유저 그룹 권한: 서비스 루트 및 앱 루트 -->
+    <entry key="group_role_root">ROLE_ROOT</entry>
+    <!-- 유저 그룹 권한: 정회원 및 앱 정회원 -->
+    <entry key="group_role_user">ROLE_USER</entry>
+    <!-- 유저 그룹 권한: 방문자 및 앱 방문자 -->
+    <entry key="group_role_visitor">ROLE_VISITOR</entry>
+    <!-- 유저 그룹 권한: 방문자 및 앱 방문자 -->
+    <entry key="group_role_advisor">ROLE_ADVISOR</entry>
+
+
+    <!-- mime type -->
+    <!-- mime type: png -->
+    <entry key="mime_type_png">image/png</entry>
+    <!-- mime type: jpg -->
+    <entry key="mime_type_jpg">
+        image/jpeg,
+        image/pjpeg,
+        image/jpeg,
+        image/jpeg,
+        image/pjpeg,
+        image/jpeg,
+        image/pjpeg,
+        image/jpeg,
+        image/pjpeg,
+        image/x-jps
+    </entry>
+
+
+    <!-- 파일 타입별 URI 구분 -->
+    <!-- 파일 타입별 URI 구분: Push 용 이미지 파일 -->
+    <entry key="push_file_type_uri">/resource/show/image/push/</entry>
+    <entry key="repository_file_type_uri">/resource/show/image/repo/</entry>
+    <entry key="repository_file_download_uri">/resource/repo/download/</entry>
+    <entry key="document_attach_uri">/resource/show/image/document/</entry>
+    <entry key="document_attach_download_uri">/resource/document/download/</entry>
+
+
+    <!-- Ras -->
+    <!-- ras event queue -->
+    <entry key="ras_event_queue">queue.event</entry>
+    <!-- backoffice app_id reserved value -->
+    <entry key="ras_backoffice_app_id">console</entry>
+    <!-- apns, gcm 보낼때 사용되는 pid 고정값 -->
+    <entry key="ras_gcm_apns_push_pid">ES</entry>
+    <!-- apns, gcm 보낼때 사용되는 event type -->
+    <entry key="ras_gcm_apns_event_type">ckpush-gcm-apns-send</entry>
+
+
+    <!-- 인증 -->
+    <!-- 인증키 유지 시간. 초 단위 -->
+    <entry key="access_token_valid_sec">3600</entry>
+    <!-- 인증키 헤더명 -->
+    <entry key="access_token_header_name">X-Access-Token</entry>
+    <!-- 인증키 유지 시간 -->
+    <entry key="access_token_alive_header_name">X-Access-Token-Expire</entry>
+    <!-- 인증키로 추출한 정보. interceptor 거치면서 추출한 것을 내부에서 DB 작업 하지 않고 사용하기 위해 -->
+    <entry key="access_token_info">token_info</entry>
+
+
+    <!-- 소셜 헤더 -->
+    <!-- 카카오톡 -->
+    <entry key="social_header_kakaotoc">KA-</entry>
+    <!-- 페이스북 -->
+    <entry key="social_header_facebook">FA-</entry>
+    <!-- 트위터 -->
+    <entry key="social_header_twitter">TW-</entry>
+    <!-- 구글 -->
+    <entry key="social_header_google">GO-</entry>
+    <!-- 네이버 -->
+    <entry key="social_header_naver">NA-</entry>
+    <!-- 다음 -->
+    <entry key="social_header_daum">DA-</entry>
+
+
+    <!-- 단말기 터미널 -->
+    <!-- 단말기 터미널 : 지원 단말기 전체. 하단에 정의된 것을 Set으로 해 둔 것 -->
+    <entry key="user_terminal_support">1:안드로이드폰, 2:아이폰</entry>
+    <!-- 단말기 터미널 : 안드로이드 -->
+    <entry key="user_terminal_android">1</entry>
+    <!-- 단말기 터미널 : 아이폰 -->
+    <entry key="user_terminal_iphone">2</entry>
+
+
+    <!-- redis 저장시 키의 헤더 -->
+    <!-- 사용자의 access_token 헤더 -->
+    <entry key="redis_access_token_header">ckpush.member.access_token.</entry>
+
+
+    <!-- 앱 그룹 구분 -->
+    <!-- 시스템에서 자동으로 생성한 삭제 불가능 한 그룹 -->
+    <entry key="system_app_group">1</entry>
+    <!-- 사용자가 생성한 그룹 -->
+    <entry key="custom_app_group">2</entry>
+
+</properties>

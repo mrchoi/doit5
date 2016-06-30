@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.HolidayDao">
+
+    <sql id="HolidayColumn">
+        member_srl,
+        holiday_title,
+        holiday_date,
+        holiday_time,
+        c_date
+    </sql>
+
+    <insert id="addHoliday" parameterType="HolidayEntity" keyProperty="holiday_srl" keyColumn="holiday_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_plymind_holiday (
+            <include refid="HolidayColumn" />
+        ) VALUES (
+            #{member_srl},
+            #{holiday_title},
+            #{holiday_date},
+            #{holiday_time},
+            UNIX_TIMESTAMP()
+        )
+    </insert>
+
+    <select id="countHoliday" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1) as cnt
+        FROM tbl_plymind_holiday
+        <where>
+            <if test="_parameter.containsKey('holiday_title') and holiday_title != null">
+                holiday_title LIKE CONCAT('', CONCAT('%', #{holiday_title}, ''), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getHolidayList" parameterType="java.util.Map" resultMap="com.ckpush.result.HolidayEntity">
+        SELECT holiday_srl, holiday_title, holiday_date, c_date
+        FROM tbl_plymind_holiday
+        <where>
+            member_srl = 0
+            <if test="_parameter.containsKey('holiday_title') and holiday_title != null">
+                AND holiday_title LIKE CONCAT('', CONCAT('%', #{holiday_title}, ''), '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY holiday_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countAdvisorHoliday" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1) as cnt
+        FROM tbl_plymind_holiday A, tbl_member B
+        <where>
+            A.member_srl = B.member_srl AND A.member_srl > 0
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.member_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.member_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('holiday_title') and holiday_title != null">
+                AND A.holiday_title LIKE CONCAT('', CONCAT('%', #{holiday_title}, ''), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getAdvisorHolidayList" parameterType="java.util.Map" resultMap="com.ckpush.result.HolidayEntity">
+        SELECT
+        A.holiday_srl as holiday_srl,
+        A.holiday_title as holiday_title,
+        A.holiday_date as holiday_date,
+        A.holiday_time as holiday_time,
+        A.c_date as c_date,
+        B.nick_name as nick_name,
+        B.user_name as user_name
+        FROM tbl_plymind_holiday A, tbl_member B
+        <where>
+            A.member_srl = B.member_srl AND A.member_srl > 0
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.member_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.member_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('holiday_title') and holiday_title != null">
+                AND A.holiday_title LIKE CONCAT('', CONCAT('%', #{holiday_title}, ''), '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY holiday_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <delete id="deleteHoliday" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('holiday_srls') and holiday_srls != null and _parameter.get('holiday_srls').size > 0)">
+            DELETE FROM tbl_plymind_holiday
+            <where>
+                <if test="_parameter.containsKey('holiday_srls') and holiday_srls != null and _parameter.get('holiday_srls').size > 0">
+                    AND holiday_srl IN
+                    <foreach item="item" index="index" collection="holiday_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+</mapper>

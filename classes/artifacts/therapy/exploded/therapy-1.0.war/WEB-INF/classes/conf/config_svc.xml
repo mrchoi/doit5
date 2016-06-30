@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>일반 사용자에게 보여줄 웹서비스 설정</comment>
+
+    <entry key="member.group.root.srl">1</entry><!--관리자-->
+    <entry key="member.group.user.srl">2</entry><!--회원(고객)-->
+    <entry key="member.group.visitor.srl">3</entry><!---->
+    <entry key="member.group.advisor.srl">4</entry><!--상담사-->
+
+    <entry key="plymind.product.kind.advice.srl">1</entry><!-- 상품 구분 중 심리상담 category -->
+    <entry key="plymind.product.kind.checkup.srl">2</entry><!-- 상품 구분 중 심리상담 심리검사 category -->
+    <!-- 리스트 설정 -->
+    <!-- 한 페이지에서 보여줄 row의 개수 -->
+    <entry key="list_one_page_row">10</entry>
+</properties>

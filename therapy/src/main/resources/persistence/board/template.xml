@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.TemplateDao">
+    <sql id="TemplateColumn">
+        template_title,
+        template_content,
+        template_description,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="TemplateEntity" keyProperty="template_srl" keyColumn="template_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_template (
+            <include refid="TemplateColumn" />
+        ) VALUES (
+            #{template_title},
+            #{template_content, jdbcType=VARCHAR},
+            #{template_description, jdbcType=VARCHAR},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_template
+        <where>
+            <if test="template_srl > 0">
+                template_srl = #{template_srl}
+            </if>
+            <if test="template_title != null">
+                AND template_title LIKE CONCAT('', #{template_title}, '%')
+            </if>
+        </where>
+        ORDER BY template_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.TemplateEntity">
+        SELECT
+            template_srl,
+            <include refid="TemplateColumn" />
+        FROM tbl_template
+        <where>
+            <if test="_parameter.containsKey('template_srl') and template_srl > 0">
+                template_srl = #{template_srl}
+            </if>
+            <if test="_parameter.containsKey('template_srls') and template_srls != null and _parameter.get('template_srls').size > 0">
+                AND template_srl IN
+                <foreach item="item" index="index" collection="template_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('template_title') and template_title != null">
+                AND template_title LIKE CONCAT('', #{template_title}, '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY template_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_template_srl > 0">
+            UPDATE tbl_template
+            <set>
+                <if test="templateEntity.template_title != null">template_title = #{templateEntity.template_title},</if>
+                <if test="templateEntity.template_content != null">template_content = #{templateEntity.template_content},</if>
+                <if test="templateEntity.template_description != null">template_description = #{templateEntity.template_description},</if>
+                <if test="templateEntity.c_date > 0">c_date = #{templateEntity.c_date},</if>
+                <if test="templateEntity.u_date > 0">u_date = #{templateEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_template_srl > 0">
+                    template_srl = #{target_template_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('template_srl') and template_srl > 0) or (_parameter.containsKey('template_srls') and template_srls != null and _parameter.get('template_srls').size > 0)">
+            DELETE FROM tbl_template
+            <where>
+                <if test="_parameter.containsKey('template_srl') and template_srl > 0">
+                    template_srl = #{template_srl}
+                </if>
+                <if test="_parameter.containsKey('template_srls') and template_srls != null and _parameter.get('template_srls').size > 0">
+                    AND template_srl IN
+                    <foreach item="item" index="index" collection="template_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

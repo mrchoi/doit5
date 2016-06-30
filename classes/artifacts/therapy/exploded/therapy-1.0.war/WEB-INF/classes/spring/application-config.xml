@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+    <context:component-scan base-package="
+        com.ckstack.ckpush.dao,
+        com.ckstack.ckpush.message,
+		com.ckstack.ckpush.service" />
+
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:conf/jdbc.properties</value>
+                <value>classpath:conf/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+
+    <bean id="downloadView" class="com.ckstack.ckpush.common.view.DownloadView" />
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basenames">
+            <list>
+                <value>classpath:messages/messages</value>
+                <value>classpath:messages/errcd</value>
+                <value>classpath:messages/errmsg</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg>
+            <!-- millisec -->
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory"
+                  p:readTimeout="30000"
+                  p:connectTimeout="30000" />
+        </constructor-arg>
+    </bean>
+
+    <bean id="myexecuter" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+        <constructor-arg value="100" />
+    </bean>
+    <task:executor id="threadPoolTaskExecutor" pool-size="100" queue-capacity="500"/>
+    <task:annotation-driven executor="myexecuter"/>
+
+    <util:properties id="confCommon" location="classpath:conf/config_common.xml" />
+    <util:properties id="confAccessory" location="classpath:conf/config_acsy.xml" />
+    <util:properties id="confTblFile" location="classpath:conf/config_file_table.xml" />
+    <util:properties id="confExtension" location="classpath:conf/mime-type.xml" />
+    <util:properties id="confDym" location="classpath:conf/config_dynamic.xml" />
+    <util:properties id="confSvc" location="classpath:conf/config_svc.xml" />
+    <util:properties id="confAdmin" location="classpath:conf/config_admin.xml" />
+    <util:properties id="confPlymind" location="classpath:conf/config_plymind.xml" />
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!-- gmail
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="username" value="kojdaji@gmail.com"/>
+        <property name="password" value="password"/>
+        -->
+        <!-- naver 또는 naver works (호스트만 다름) -->
+        <!-- naver : smtp.naver.com -->
+        <!-- naver works : smtp.works.naver.com -->
+        <property name="host" value="smtp.works.naver.com"/>
+        <property name="username" value="plymind@plymind.com"/>
+        <property name="password" value="human1001"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.port">465</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.socketFactory.port">465</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.socketFactory.fallback">false</prop>
+            </props>
+        </property>
+        <!-- 내부 SMTP 서버 이용
+        <property name="host" value="localhost"/>
+        <property name="port" value="25"/>
+        <property name="username" value="kodaji"/>
+        <property name="password" value="password"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+         -->
+    </bean>
+
+</beans>

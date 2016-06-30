@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.mineral.FileRepositoryDao">
+    <sql id="FileRepositoryColumn">
+        orig_name,
+        mime_type,
+        file_size,
+        file_path,
+        file_url,
+        width,
+        height,
+        thumb_path,
+        thumb_url,
+        thumb_width,
+        thumb_height,
+        file_comment,
+        user_id,
+        ipaddress,
+        deleted,
+        c_date,
+        u_date,
+        file_type
+    </sql>
+
+    <insert id="add" parameterType="FileRepositoryEntity" keyProperty="file_srl" keyColumn="file_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_file_repository (
+            <include refid="FileRepositoryColumn" />
+        ) VALUES (
+            #{orig_name, jdbcType=VARCHAR},
+            #{mime_type, jdbcType=VARCHAR},
+            #{file_size},
+            #{file_path, jdbcType=VARCHAR},
+            #{file_url},
+            #{width},
+            #{height},
+            #{thumb_path, jdbcType=VARCHAR},
+            #{thumb_url, jdbcType=VARCHAR},
+            #{thumb_width},
+            #{thumb_height},
+            #{file_comment, jdbcType=VARCHAR},
+            #{user_id, jdbcType=VARCHAR},
+            #{ipaddress, jdbcType=VARCHAR},
+            #{deleted},
+            #{c_date},
+            #{u_date},
+            #{file_type}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_file_repository
+        <where>
+            <if test="file_srls != null and _parameter.get('file_srls').size > 0">
+                file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="orig_name != null">
+                AND orig_name LIKE CONCAT('%', #{orig_name}, '%')
+            </if>
+            <if test="user_id != null">
+                AND user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        ORDER BY file_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.FileRepositoryEntity">
+        SELECT
+        file_srl,
+        <include refid="FileRepositoryColumn" />
+        FROM tbl_file_repository
+        <where>
+            <if test="_parameter.containsKey('file_srl') and file_srl > 0">
+                file_srl = #{file_srl}
+            </if>
+            <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                AND file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('orig_name') and orig_name != null">
+                AND orig_name LIKE CONCAT('%', #{orig_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="_parameter.containsKey('max_file_srl') and max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY file_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_file_srl > 0">
+            UPDATE tbl_file_repository
+            <set>
+                <if test="fileRepositoryEntity.orig_name != null">orig_name = #{fileRepositoryEntity.orig_name},</if>
+                <if test="fileRepositoryEntity.mime_type != null">mime_type = #{fileRepositoryEntity.mime_type},</if>
+                <if test="fileRepositoryEntity.file_size >= 0">file_size = #{fileRepositoryEntity.file_size},</if>
+                <if test="fileRepositoryEntity.file_path != null">file_path = #{fileRepositoryEntity.file_path},</if>
+                <if test="fileRepositoryEntity.file_url != null">file_url = #{fileRepositoryEntity.file_url},</if>
+                <if test="fileRepositoryEntity.width >= -1">width = #{fileRepositoryEntity.width},</if>
+                <if test="fileRepositoryEntity.height >= -1">height = #{fileRepositoryEntity.height},</if>
+                <if test="fileRepositoryEntity.thumb_path != null">thumb_path = #{fileRepositoryEntity.thumb_path},</if>
+                <if test="fileRepositoryEntity.thumb_url != null">thumb_url = #{fileRepositoryEntity.thumb_url},</if>
+                <if test="fileRepositoryEntity.thumb_width >= -1">thumb_width = #{fileRepositoryEntity.thumb_width},</if>
+                <if test="fileRepositoryEntity.thumb_height >= -1">thumb_height = #{fileRepositoryEntity.thumb_height},</if>
+                <if test="fileRepositoryEntity.file_comment != null">file_comment = #{fileRepositoryEntity.file_comment},</if>
+                <if test="fileRepositoryEntity.user_id != null">user_id = #{fileRepositoryEntity.user_id},</if>
+                <if test="fileRepositoryEntity.ipaddress != null">ipaddress = #{fileRepositoryEntity.ipaddress},</if>
+                <if test="fileRepositoryEntity.deleted > 0">deleted = #{fileRepositoryEntity.deleted},</if>
+                <if test="fileRepositoryEntity.c_date > 0">c_date = #{fileRepositoryEntity.c_date},</if>
+                <if test="fileRepositoryEntity.file_type > 0">file_type = #{fileRepositoryEntity.file_type},</if>
+                <if test="fileRepositoryEntity.u_date > 0">u_date = #{fileRepositoryEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_file_srl > 0">
+                    file_srl = #{target_file_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="file_srl > 0">
+            DELETE FROM tbl_file_repository
+            WHERE file_srl = #{file_srl}
+        </if>
+    </delete>
+
+
+    <select id="countPlymind" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_file_repository
+        <where>
+            <if test="file_srls != null and _parameter.get('file_srls').size > 0">
+                file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="_parameter.containsKey('file_type') and file_type > 0">
+                AND file_type = #{file_type}
+            </if>
+            <if test="_parameter.containsKey('file_types') and file_types != null and _parameter.get('file_types').size > 0">
+                AND file_type IN
+                <foreach item="item" index="index" collection="file_types" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="orig_name != null">
+                AND orig_name LIKE CONCAT('%', #{orig_name}, '%')
+            </if>
+            <if test="user_id != null">
+                AND user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        ORDER BY file_srl DESC
+    </select>
+
+
+    <select id="getPlymind" parameterType="java.util.Map" resultMap="com.ckpush.result.FileRepositoryEntity">
+        SELECT
+        file_srl,
+        <include refid="FileRepositoryColumn" />
+        FROM tbl_file_repository
+        <where>
+            <if test="_parameter.containsKey('file_srl') and file_srl > 0">
+                file_srl = #{file_srl}
+            </if>
+            <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                AND file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('file_type') and file_type > 0">
+                AND file_type = #{file_type}
+            </if>
+            <if test="_parameter.containsKey('file_types') and file_types != null and _parameter.get('file_types').size > 0">
+                AND file_type IN
+                <foreach item="item" index="index" collection="file_types" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('orig_name') and orig_name != null">
+                AND orig_name LIKE CONCAT('%', #{orig_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="_parameter.containsKey('max_file_srl') and max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY file_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+</mapper>

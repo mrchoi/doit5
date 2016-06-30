@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file:///home1/leogon/ideaProject/doit5" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bc2f8eee-03e0-4f91-b541-3de2775baef3" name="Default" comment="" />
+    <ignored path="doit5.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="/home1/leogon/ideaProject/doit5/.gradle/" />
+    <ignored path="/home1/leogon/ideaProject/doit5/build/" />
+    <ignored path="/home1/leogon/ideaProject/doit5/therapy/.gradle/" />
+    <ignored path="/home1/leogon/ideaProject/doit5/therapy/build/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="/home1/leogon/ideaProject/doit5/therapy">
+          <activation />
+        </task>
+        <task path="/home1/leogon/ideaProject/doit5">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <PATH>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ExternalProjectsStructure$RootNode" />
+              </PATH_ELEMENT>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="doit5" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ProjectNode" />
+              </PATH_ELEMENT>
+            </PATH>
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="doit5" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="doit5" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="doit5" />
+                <option name="path" value="/home1/leogon/ideaProject/doit5" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value=":therapy" />
+                <option name="path" value="/home1/leogon/ideaProject/doit5/therapy" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="availableTasks">
+      <map>
+        <entry key="/home1/leogon/ideaProject/doit5">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles classes 'main'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles Java source 'main:java'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles Java source 'test:java'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes JVM resources 'main:resources'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes JVM resources 'test:resources'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles classes 'test'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uploads all artifacts belonging to configuration ':therapy:archives'" />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="uploadArchives" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates a war archive with all the compiled classes, the web-app content and the libraries." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+                <option name="name" value="war" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="/home1/leogon/ideaProject/doit5/therapy">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles classes 'main'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles Java source 'main:java'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles Java source 'test:java'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes JVM resources 'main:resources'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes JVM resources 'test:resources'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles classes 'test'." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uploads all artifacts belonging to configuration ':therapy:archives'" />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="uploadArchives" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates a war archive with all the compiled classes, the web-app content and the libraries." />
+                <option name="linkedExternalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+                <option name="name" value="war" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$" value="2934367681506" />
+        <entry key="$PROJECT_DIR$/../plymind" value="2934348538546" />
+        <entry key="$USER_HOME$/ideaProject2/plymind" value="2934196235084" />
+        <entry key="$USER_HOME$/ideaProjects/doit5" value="2932033964772" />
+        <entry key="$USER_HOME$/ideaProjects/plymind" value="2932033964772" />
+      </map>
+    </option>
+    <option name="projectBuildClasspath">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <ExternalProjectBuildClasspathPojo>
+              <option name="modulesBuildClasspath">
+                <map>
+                  <entry key="/home1/leogon/ideaProject/doit5">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="path" value="/home1/leogon/ideaProject/doit5" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="/home1/leogon/ideaProject/doit5/therapy">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.1.5.RELEASE/71b10b2ba7f6f0cce690d55e4bc8afc823d16628/spring-webmvc-4.1.5.RELEASE.jar" />
+                            <option value="$USER_HOME$/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.freemarker/freemarker/2.3.22/473d784b3cd2dcb6d49a287ded0542b7862c7d68/freemarker-2.3.22.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.5.RELEASE/47624ce0bca40bac9a64276ed36d67be11f133b8/spring-security-web-3.2.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/3.2.5.RELEASE/1286983a3ad4549d7f7fd0f3784e747667b44b70/spring-security-config-3.2.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.1.5.RELEASE/8df7ebc3bec108e1e71370e4dae1c8591966f622/spring-jdbc-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.1.5.RELEASE/258d04c25cdae15dce060e93bb9646f3a153475d/spring-tx-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.33/8af455a9a3267e6664cafc87ace71a4e4ef02837/mysql-connector-java-5.1.33.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.2.8/7b6bf82cea13570b5290d6ed841283a1fcce170/mybatis-3.2.8.jar" />
+                            <option value="$USER_HOME$/.m2/repository/org/mybatis/mybatis-spring/1.2.2/mybatis-spring-1.2.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-dbcp2/2.0.1/dc887691eab129c5728e26b095751fcadd36719d/commons-dbcp2-2.0.1.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/1.4.0.RELEASE/e635a87d7dfe76e9d9d7332e5865b66e9111155c/spring-data-redis-1.4.0.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/redis.clients/jedis/2.6.0/aeff5e4ad1af2cbb4c5350cb44d144273dcadc06/jedis-2.6.0.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/net.sf.json-lib/json-lib/2.4/136743e0d12df4e785e62b48618cee169b2ae546/json-lib-2.4-jdk15.jar" />
+                            <option value="$USER_HOME$/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.3/4cb3dbb0c2f75b51aa7543c53252989785a0c609/jackson-core-2.4.3.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.3/feff63199be7b8f495c2f3e2096dcb6bd5e5b0b3/jackson-databind-2.4.3.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.3.6/4c47155e3e6c9a41a28db36680b828ced53b8af4/httpclient-4.3.6.jar" />
+                            <option value="$USER_HOME$/.m2/repository/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.1.2.Final/8aecb33d3587f32c877827c2bdddae0d227a40ed/hibernate-validator-5.1.2.Final.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.7/2b8019b6249bb05d81d3a3094e468753e2b21311/slf4j-api-1.7.7.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.2/b316e9737eea25e9ddd6d88eaeee76878045c6b2/logback-classic-1.1.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.9/cc18955ff1e36d5abd39a14bfe82b19154330a34/commons-compress-1.9.jar" />
+                            <option value="$USER_HOME$/.m2/repository/commons-fileupload/commons-fileupload/1.3.1/commons-fileupload-1.3.1.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.5/c73038a3688525aad5cf33409df483178290cd64/joda-time-2.5.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.16.2/abcc131bb227dcdd30437ee1cc164579767b03b4/lombok-1.16.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-core/1.8/f3bf092163fa9901a24060583044060a2a7ee295/tika-core-1.8.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/com.sun.mail/javax.mail/1.5.5/ffcd34b5de820f35bcc9303649cf6ab2c65ad44e/javax.mail-1.5.5.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/com.github.fernandospr/javapns-jdk16/2.2.1/420a631175f54b28c92c12507166a152614f36c4/javapns-jdk16-2.2.1.jar" />
+                            <option value="$USER_HOME$/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar" />
+                            <option value="$USER_HOME$/.m2/repository/javax/servlet/jsp/jsp-api/2.2/jsp-api-2.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.1.5.RELEASE/5f82fae5c6359ff883e5e06c2c56169286b7e137/spring-beans-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.1.5.RELEASE/483e58e37120c008df917abda73cd81f68d269/spring-context-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.1.5.RELEASE/4f9af02bca3066ea0d5ac450332ca210c5de1957/spring-core-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.1.5.RELEASE/e55a83a99260973099833cae425716ecb4b77850/spring-expression-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.1.5.RELEASE/8e542f560b65c920bf60cbc5db5b1097610fa94a/spring-web-4.1.5.RELEASE.jar" />
+                            <option value="$USER_HOME$/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/3.2.5.RELEASE/d5db43e696a02186ab7e18f8c9d99afbde94bd77/spring-security-core-3.2.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-pool2/2.2/bd1a6e384f3cf0f9b9a60e1e6c1c1ecbbee7e0b7/commons-pool2-2.2.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context-support/4.0.7.RELEASE/d28f4dfc2ea3f8be8cecc299f1c44e1578804915/spring-context-support-4.0.7.RELEASE.jar" />
+                            <option value="$USER_HOME$/.m2/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar" />
+                            <option value="$USER_HOME$/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" />
+                            <option value="$USER_HOME$/.m2/repository/commons-lang/commons-lang/2.5/commons-lang-2.5.jar" />
+                            <option value="$USER_HOME$/.m2/repository/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar" />
+                            <option value="$USER_HOME$/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.3.3/f91b7a4aadc5cf486df6e4634748d7dd7a73f06d/httpcore-4.3.3.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.6/b7f0fc8f61ecadeb3695f0b9464755eee44374d4/commons-codec-1.6.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.3.GA/64499e907f19e5e1b3fdc02f81440c1832fe3545/jboss-logging-3.1.3.GA.jar" />
+                            <option value="$USER_HOME$/.m2/repository/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.2/2d23694879c2c12f125dac5076bdfd5d771cc4cb/logback-core-1.1.2.jar" />
+                            <option value="$USER_HOME$/.m2/repository/commons-io/commons-io/2.2/commons-io-2.2.jar" />
+                            <option value="$USER_HOME$/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar" />
+                            <option value="$USER_HOME$/.m2/repository/log4j/log4j/1.2.12/log4j-1.2.12.jar" />
+                            <option value="$USER_HOME$/.m2/repository/org/bouncycastle/bcprov-jdk16/1.46/bcprov-jdk16-1.46.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.1.5.RELEASE/f370549f6e84fe25671963c3f1c3f0e90d8b4cac/spring-aop-4.1.5.RELEASE.jar" />
+                            <option value="/home1/leogon/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="/home1/leogon/ideaProject/doit5/therapy" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="name" value="doit5" />
+              <option name="projectBuildClasspath">
+                <list>
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/platform-base" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/signing" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/ear" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/model-groovy" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/core" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/resources-http" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/ide" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/ui" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/publish" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/cunit" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/messaging" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/scala" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/javascript" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/antlr" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/ivy" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/launcher" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/cli" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/model-core" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/internal-integ-testing" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/language-jvm" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/internal-testing" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/resources" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/native" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/code-quality" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/plugin-development" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/platform-jvm" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/plugins" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/base-services-groovy" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/osgi" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/dependency-management" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/reporting" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/ide-native" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/wrapper" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/language-java" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/sonar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/build-comparison" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/base-services" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/language-native" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/jetty" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/build-init" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/jacoco" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/diagnostics" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/announce" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/open-api" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/plugin-use" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/tooling-api" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/platform-native" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/language-groovy" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/src/maven" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-open-api-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-tooling-api-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-core-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-docs-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-cli-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-launcher-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-model-groovy-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/ant-1.9.3.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-native-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-ui-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/ant-launcher-1.9.3.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-model-core-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-resources-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-base-services-groovy-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-base-services-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-wrapper-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/groovy-all-2.3.6.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/gradle-messaging-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-resources-http-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-jetty-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-code-quality-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/ivy-2.2.0.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-platform-base-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-dependency-management-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-maven-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-scala-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-language-java-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-antlr-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-signing-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-language-jvm-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-plugin-use-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-plugins-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-ide-native-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-ide-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-jacoco-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-build-init-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-publish-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-ivy-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-ear-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-platform-native-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-diagnostics-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-javascript-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-announce-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-plugin-development-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-osgi-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-platform-jvm-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-reporting-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-sonar-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-language-native-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/ant-antlr-1.9.3.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-language-groovy-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-cunit-2.2.jar" />
+                  <option value="/home1/leogon/.gradle/wrapper/dists/gradle-2.2-all/1vevkra640w3rb9hkuw50q5we/gradle-2.2/lib/plugins/gradle-build-comparison-2.2.jar" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
+                </list>
+              </option>
+            </ExternalProjectBuildClasspathPojo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="/home1/leogon/ideaProject/doit5/therapy/therapy.iml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/webapp/WEB-INF/mvc-config.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/controller/plymind/AdminThemeController.java" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/build.gradle" />
+        <option value="/home1/leogon/ideaProject/doit5/doit5.iml" />
+        <option value="$PROJECT_DIR$/doit5.iml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/logback.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources-dev/conf/config_dynamic.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources-svc/conf/config_dynamic.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/classes/artifacts/therapy/exploded/therapy-1.0.war/WEB-INF/classes/conf/jdbc.properties" />
+        <option value="/home1/leogon/ideaProject/doit5/classes/artifacts/therapy/exploded/therapy-1.0.war/WEB-INF/web.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/spring/application-config.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/spring/security-context.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/webapp/WEB-INF/web.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/database/mybatis-context.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/conf/jdbc.properties" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/service/board/impl/DocumentServiceImpl.java" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/controller/api/subscribe/ApiPlymindController.java" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/resources/database/mybatis-config.xml" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/common/security/Doit5LoginFailureHandler.java" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/common/security/Doit5LoginSuccessHandler.java" />
+        <option value="/home1/leogon/ideaProject/doit5/therapy/src/main/java/com/ckstack/ckpush/common/security/Doit5UserDetailsService.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="false" />
+    <option name="FILTER_DEBUG" value="false" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1920" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring CoreSpring</id>
+          </State>
+          <State>
+            <id>XMLSpring CoreSpring</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>SpringModelInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doit5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="/home1/leogon/ideaProject/doit5" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Tomcat Server.doit5">
+    <configuration default="false" name="Tests in 'therapy'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="/home1/leogon/ideaProject/doit5/therapy" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests *" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="cleanTest" />
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="false" name="doit5::home1:leogon:ideaProject:doit5 [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="/home1/leogon/ideaProject/doit5" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="classes" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="false" name="doit5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.14" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <file path="$PROJECT_DIR$/web-res/web">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </file>
+        <artifact name="Gradle : doit5:therapy : therapy-1.0.war (exploded)">
+          <settings>
+            <option name="CONTEXT_PATH" value="/doit5" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_doit5_6" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="37512" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="Gradle : doit5:therapy : therapy-1.0.war (exploded)" />
+        </option>
+      </method>
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.doit5" />
+      <item index="1" class="java.lang.String" itemvalue="Gradle.Tests in 'therapy'" />
+      <item index="2" class="java.lang.String" itemvalue="Gradle.doit5::home1:leogon:ideaProject:doit5 [classes]" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Gradle.doit5::home1:leogon:ideaProject:doit5 [classes]" />
+        <item index="1" class="java.lang.String" itemvalue="Gradle.Tests in 'therapy'" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bc2f8eee-03e0-4f91-b541-3de2775baef3" name="Default" comment="" />
+      <created>1467177531614</created>
+      <option name="number" value="Default" />
+      <updated>1467177531614</updated>
+      <workItem from="1467177533113" duration="5125000" />
+      <workItem from="1467190635691" duration="1220000" />
+      <workItem from="1467191875525" duration="8446000" />
+      <workItem from="1467263159583" duration="585000" />
+      <workItem from="1467263924705" duration="1584000" />
+      <workItem from="1467265533904" duration="6079000" />
+      <workItem from="1467275268228" duration="631000" />
+      <workItem from="1467275921244" duration="703000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="24373000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.50213677" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.06837607" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24839744" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36363637" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.49786323" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file:///home1/leogon/ideaProject/doit5/doit5.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44925123">
+          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04950495">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doit5.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5940594">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>Gradle : doit5:therapy : therapy-1.0.war (exploded)</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>therapy</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Gradle: junit:junit:4.11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

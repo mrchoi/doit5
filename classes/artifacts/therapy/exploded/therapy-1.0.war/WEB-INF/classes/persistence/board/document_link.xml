@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.DocumentLinkDao">
+    <sql id="DocumentLinkColumn">
+        app_srl,
+        board_srl,
+        category_srl,
+        document_srl,
+        list_order,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentLinkEntity" keyProperty="document_link_srl" keyColumn="document_link_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_document_link (
+            <include refid="DocumentLinkColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{board_srl},
+            #{category_srl},
+            #{document_srl},
+            #{list_order},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_link
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="category_srl > 0">
+                AND category_srl = #{category_srl}
+            </if>
+            <if test="document_srl > 0">
+                AND document_srl = #{document_srl}
+            </if>
+        </where>
+        ORDER BY document_link_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentLinkEntity">
+        SELECT
+            document_link_srl,
+            <include refid="DocumentLinkColumn" />
+        FROM
+            tbl_document_link
+        <where>
+            <if test="_parameter.containsKey('document_link_srl') and document_link_srl > 0">
+                document_link_srl = #{document_link_srl}
+            </if>
+            <if test="_parameter.containsKey('document_link_srls') and document_link_srls != null and _parameter.get('document_link_srls').size > 0">
+                AND document_link_srl IN
+                <foreach item="item" index="index" collection="document_link_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                AND document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY document_link_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countFullInfo" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_link A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        <where>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                A.document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND A.app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND A.board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND A.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND A.category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND A.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_title') and document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                AND B.secret = #{secret}
+            </if>
+            <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('block') and block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="_parameter.containsKey('allow_comment') and allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="_parameter.containsKey('allow_notice') and allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        ORDER BY A.document_link_srl DESC
+    </select>
+
+    <select id="getFullInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentLinkFullEntity">
+        SELECT
+            A.document_link_srl as document_link_srl,
+            A.app_srl as app_srl,
+            A.board_srl as board_srl,
+            A.category_srl as category_srl,
+            A.document_srl as document_srl,
+            A.list_order as list_order,
+            A.c_date as c_date,
+            B.app_srl as document_app_srl,
+            B.board_srl as document_board_srl,
+            B.category_srl as document_category_srl,
+            B.document_title as document_title,
+            B.document_content as document_content,
+            B.read_count as read_count,
+            B.like_count as like_count,
+            B.blame_count as blame_count,
+            B.comment_count as comment_count,
+            B.file_count as file_count,
+            B.outer_link as outer_link,
+            B.secret as secret,
+            B.block as block,
+            B.allow_comment as allow_comment,
+            B.allow_notice as allow_notice,
+            B.list_order as document_list_order,
+            B.template_srl as template_srl,
+            B.template_extra as template_extra,
+            B.member_srl as member_srl,
+            B.user_id as user_id,
+            B.user_name as user_name,
+            B.nick_name as nick_name,
+            B.email_address as email_address,
+            B.document_password as document_password,
+            B.ipaddress as ipaddress,
+            B.c_date as document_c_date,
+            B.u_date as u_date
+        FROM tbl_document_link A
+        LEFT JOIN tbl_document B
+        ON A.document_srl = B.document_srl
+        <where>
+            <if test="_parameter.containsKey('document_link_srl') and document_link_srl > 0">
+                A.document_link_srl = #{document_link_srl}
+            </if>
+            <if test="_parameter.containsKey('document_link_srls') and document_link_srls != null and _parameter.get('document_link_srls').size > 0">
+                AND A.document_link_srl IN
+                <foreach item="item" index="index" collection="document_link_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                AND A.document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND A.app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND A.board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND A.board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                AND A.category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND A.category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('document_title') and document_title != null">
+                AND B.document_title LIKE CONCAT('', #{document_title}, '%')
+            </if>
+            <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                AND B.secret = #{secret}
+            </if>
+            <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                AND B.secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('block') and block > 0">
+                AND B.block = #{block}
+            </if>
+            <if test="_parameter.containsKey('allow_comment') and allow_comment > 0">
+                AND B.allow_comment = #{allow_comment}
+            </if>
+            <if test="_parameter.containsKey('allow_notice') and allow_notice > 0">
+                AND B.allow_notice = #{allow_notice}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND B.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND B.user_id LIKE CONCAT('', #{user_id}, '%')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', #{user_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND B.nick_name LIKE CONCAT('', #{nick_name}, '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    <choose>
+                        <when test="key == 'document_link_srl' or key == 'list_order' or key == 'app_srl' or key == 'board_srl' or key == 'category_srl' or key == 'document_srl'">
+                            A.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.document_link_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_document_link_srl > 0 or target_category_srl > 0 or target_board_srl > 0">
+            UPDATE tbl_document_link
+            <set>
+                <if test="documentLinkEntity.app_srl > 0">app_srl = #{documentLinkEntity.app_srl},</if>
+                <if test="documentLinkEntity.board_srl > 0">board_srl = #{documentLinkEntity.board_srl},</if>
+                <if test="documentLinkEntity.category_srl > 0">category_srl = #{documentLinkEntity.category_srl},</if>
+                <if test="documentLinkEntity.document_srl > 0">document_srl = #{documentLinkEntity.document_srl},</if>
+                <if test="documentLinkEntity.list_order >= 0">list_order = #{documentLinkEntity.list_order},</if>
+                <if test="documentLinkEntity.c_date > 0">c_date = #{documentLinkEntity.c_date}</if>
+            </set>
+            <where>
+                <if test="target_document_link_srl > 0">
+                    document_link_srl = #{target_document_link_srl}
+                </if>
+                <if test="target_board_srl > 0">
+                    AND board_srl = #{target_board_srl}
+                </if>
+                <if test="target_category_srl > 0">
+                    AND category_srl = #{target_category_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('document_link_srl') and document_link_srl > 0) or (_parameter.containsKey('document_link_srls') and document_link_srls != null and _parameter.get('document_link_srls').size > 0)">
+            DELETE FROM tbl_document_link
+            <where>
+                <if test="_parameter.containsKey('document_link_srl') and document_link_srl > 0">
+                    document_link_srl = #{document_link_srl}
+                </if>
+                <if test="_parameter.containsKey('document_link_srls') and document_link_srls != null and _parameter.get('document_link_srls').size > 0">
+                    AND document_link_srl IN
+                    <foreach item="item" index="index" collection="document_link_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

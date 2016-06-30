@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+
+    <!-- was database jndi 를 사용하기 위해서 주석 처리
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.ckpush.driver}" />
+        <property name="url" value="${jdbc.ckpush.url}" />
+        <property name="username" value="${jdbc.ckpush.username}" />
+        <property name="password" value="${jdbc.ckpush.password}" />
+
+        # validationQuery:유효 검사용 쿼리( 1개 이상의 row를 반환하는 쿼리를 넣어주면 된다.
+        <property name="validationQuery" value="select 1" />
+
+        # testWhileIdle:컨넥션이 놀고 있을때 -_-; validationQuery 를 이용해서 유효성 검사를 할지 여부.
+        <property name="testWhileIdle" value="true" />
+
+        # timeBetweenEvictionRunsMillis:해당 밀리초마다 validationQuery 를 이용하여 유효성 검사 진행
+        <property name="timeBetweenEvictionRunsMillis" value="7200000" />
+
+        # connection pool에서 가져올때는 테스트를 진행하지 않는다.
+        <property name="testOnBorrow" value="false" />
+    </bean>
+    -->
+
+    <!-- was database jndi 를 사용 -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:/comp/env/jdbc/doit5_db" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:database/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:persistence/**/*.xml" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- mybatis mapper 를 사용하지 않을때 sqlSession 을 직접 받아서 사용
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+    -->
+
+    <!-- mapper auto-scaning -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ckstack.ckpush.dao" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

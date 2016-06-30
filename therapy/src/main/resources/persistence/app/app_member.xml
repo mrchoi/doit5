@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.app.AppMemberDao">
+    <sql id="AppMemberColumn">
+        app_srl,
+        member_srl,
+        nick_name,
+        allow_mailing,
+        allow_message,
+        last_login_date,
+        enabled,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="AppMemberEntity">
+        INSERT INTO tbl_app_member (
+            <include refid="AppMemberColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{member_srl},
+            #{nick_name},
+            #{allow_mailing},
+            #{allow_message},
+            #{last_login_date},
+            #{enabled},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_app_member
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+        </where>
+        ORDER BY app_srl DESC, member_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.AppMemberEntity">
+        SELECT <include refid="AppMemberColumn" />
+        FROM tbl_app_member
+        <where>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('app_srls') and app_srls != null and _parameter.get('app_srls').size > 0">
+                AND app_srl IN
+                <foreach item="item" index="index" collection="app_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+        </where>
+        ORDER BY app_srl DESC, member_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_app_srl > 0 or target_member_srl > 0">
+            UPDATE tbl_app_member
+            <set>
+                <if test="appMemberEntity.nick_name != null">nick_name = #{appMemberEntity.nick_name},</if>
+                <if test="appMemberEntity.allow_mailing > 0">allow_mailing = #{appMemberEntity.allow_mailing},</if>
+                <if test="appMemberEntity.allow_message > 0">allow_message = #{appMemberEntity.allow_message},</if>
+                <if test="appMemberEntity.last_login_date > 0">last_login_date = #{appMemberEntity.last_login_date},</if>
+                <if test="appMemberEntity.enabled > 0">enabled = #{appMemberEntity.enabled},</if>
+                <if test="appMemberEntity.c_date > 0">c_date = #{appMemberEntity.c_date},</if>
+                <if test="appMemberEntity.u_date > 0">u_date = #{appMemberEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_app_srl > 0">
+                    app_srl = #{target_app_srl}
+                </if>
+                <if test="target_member_srl > 0">
+                    AND member_srl = #{target_member_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('app_srl') and app_srl > 0) or (_parameter.containsKey('member_srl') and member_srl > 0)">
+            DELETE FROM tbl_app_member
+            <where>
+                <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                    app_srl = #{app_srl}
+                </if>
+                <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                    AND member_srl = #{member_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

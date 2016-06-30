@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.ApplicationDao">
+
+    <sql id="ApplicationColumn">
+        application_group,
+        application_number,
+        application_status,
+        member_srl,
+        product_srl,
+        advisor_srl,
+        start_date,
+        end_date,
+        push_date,
+        push_time,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="ApplicationEntity" keyProperty="application_srl" keyColumn="application_srl" useGeneratedKeys="true">
+
+        INSERT INTO tbl_plymind_application (
+          <include refid="ApplicationColumn" />
+        ) VALUES (
+            #{application_group},
+            #{application_number},
+            #{application_status},
+            #{member_srl},
+            #{product_srl},
+            #{advisor_srl},
+            #{start_date},
+            #{end_date},
+            #{push_date},
+            #{push_time},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <insert id="addAddress" parameterType="AddressEntity" keyProperty="address_srl" keyColumn="address_srl" useGeneratedKeys="true">
+
+        INSERT INTO tbl_plymind_address (
+            application_group, receive_name, receive_phone, receive_address, c_date, u_date
+        ) VALUES (
+            #{application_group},
+            #{receive_name},
+            #{receive_phone},
+            #{receive_address},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <update id="statusReady" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            application_status = 1
+        </set>
+        <where>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+        </where>
+    </update>
+
+    <update id="statusProgress" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            application_status = 2
+        </set>
+        <where>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+        </where>
+    </update>
+
+    <update id="statusComplete" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            application_status = 3
+        </set>
+        <where>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+        </where>
+    </update>
+
+    <update id="cancel" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            application_status = 4
+        </set>
+        <where>
+            application_group = #{application_group}
+            AND application_status IN (0, 1, 2)
+        </where>
+    </update>
+
+    <update id="statusModify" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            application_status = #{application_status}
+        </set>
+        <where>
+            <if test="application_srl > 0 ">application_srl = #{application_srl}</if>
+            <if test="application_group > 0 ">AND application_group = #{application_group}</if>
+        </where>
+    </update>
+
+    <update id="receiveCheck" parameterType="java.util.Map">
+        UPDATE tbl_plymind_application
+        <set>
+            start_date = #{applicationEntity.start_date},
+            end_date = #{applicationEntity.end_date},
+            application_status = #{applicationEntity.application_status},
+            u_date = UNIX_TIMESTAMP()
+        </set>
+        <where>
+            application_group = #{applicationEntity.application_group} AND application_number = #{applicationEntity.application_number}
+        </where>
+    </update>
+
+    <select id="countApplicationGroup" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(DISTINCT(application_group)) AS cnt
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND C.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getApplicationGroupList" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT
+        MIN(application_srl) AS application_srl,
+        A.application_group AS application_group,
+        A.member_srl AS member_srl,
+        A.advisor_srl AS advisor_srl,
+        A.product_srl AS product_srl,
+        A.c_date AS c_date
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND C.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+        </where>
+        GROUP BY application_group, member_srl, advisor_srl, product_srl, c_date
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.application_group DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countApplicationGroupComplete" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(application_srl) AS cnt FROM
+        (SELECT
+        MIN(application_srl) AS application_srl,
+        A.application_group AS application_group,
+        A.member_srl AS member_srl,
+        A.advisor_srl AS advisor_srl,
+        A.product_srl AS product_srl,
+        A.c_date AS c_date
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C,
+        (SELECT DISTINCT(application_group) AS application_group, SUM(application_status) AS status FROM tbl_plymind_application GROUP BY application_group) D
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            AND (A.application_group = D.application_group AND (C.advice_number*3) = D.status)
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND C.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+        </where>
+        GROUP BY application_group, member_srl, advisor_srl, product_srl, c_date ) E
+    </select>
+
+    <select id="getApplicationGroupCompleteList" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT
+        MIN(application_srl) AS application_srl,
+        A.application_group AS application_group,
+        A.member_srl AS member_srl,
+        A.advisor_srl AS advisor_srl,
+        A.product_srl AS product_srl,
+        A.c_date AS c_date
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C,
+        (SELECT DISTINCT(application_group) AS application_group, SUM(application_status) AS status FROM tbl_plymind_application GROUP BY application_group) D
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            AND (A.application_group = D.application_group AND (C.advice_number*3) = D.status)
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srls') and advisor_srls != null and _parameter.get('advisor_srls').size > 0">
+                AND A.advisor_srl IN
+                <foreach item="item" index="index" collection="advisor_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('product_srls') and product_srls != null and _parameter.get('product_srls').size > 0">
+                AND C.product_srl IN
+                <foreach item="item" index="index" collection="product_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+        </where>
+        GROUP BY application_group, member_srl, advisor_srl, product_srl, c_date
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.application_group DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countApplicationList" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(A.application_srl) AS cnt
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getApplicationList" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT
+        A.application_srl AS application_srl,
+        A.application_group AS application_group,
+        A.application_number AS application_number,
+        A.member_srl AS member_srl,
+        A.advisor_srl AS advisor_srl,
+        A.product_srl AS product_srl,
+        A.application_status AS application_status,
+        A.start_date AS start_date,
+        A.end_date AS end_date,
+        B.user_name AS user_name,
+        C.contents_srl AS contents_srl
+        FROM tbl_plymind_application A, tbl_member B, tbl_plymind_product C
+        <where>
+            A.member_srl = B.member_srl AND A.product_srl = C.product_srl
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('advisor_srl') and advisor_srl > 0">
+                AND A.advisor_srl = #{advisor_srl}
+            </if>
+            <if test="_parameter.containsKey('application_statues') and application_statues != null and _parameter.get('application_statues').size > 0">
+                AND A.application_status IN
+                <foreach item="item" index="index" collection="application_statues" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('contents_srls') and contents_srls != null and _parameter.get('contents_srls').size > 0">
+                AND C.contents_srl IN
+                <foreach item="item" index="index" collection="contents_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND B.user_name LIKE CONCAT('', CONCAT('%', #{user_name}, ''), '%')
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.c_date DESC, A.application_number ASC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countApplicationByGroup" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) AS cnt
+        FROM tbl_plymind_application
+        <where>
+            application_group = #{application_group}
+        </where>
+    </select>
+
+    <select id="getApplicationListByGroup" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT
+        application_srl,
+        application_group,
+        application_number,
+        member_srl,
+        advisor_srl,
+        product_srl,
+        application_status
+        FROM tbl_plymind_application
+        <where>
+            1=1
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY application_number ASC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getApplication" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT
+          application_srl,
+          <include refid="ApplicationColumn" />
+        FROM tbl_plymind_application
+        <where>
+            application_srl = #{application_srl}
+        </where>
+    </select>
+
+    <select id="getApplicationMember" parameterType="java.util.Map" resultMap="com.ckpush.result.ApplicationEntity">
+        SELECT application_group, member_srl FROM tbl_plymind_application
+        <where>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                application_group = #{application_group}
+            </if>
+        </where>
+        GROUP BY application_group, member_srl
+    </select>
+</mapper>

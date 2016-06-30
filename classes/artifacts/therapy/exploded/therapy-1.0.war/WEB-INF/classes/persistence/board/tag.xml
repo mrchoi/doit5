@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.TagDao">
+    <sql id="TagColumn">
+        app_srl,
+        member_srl,
+        tag_name,
+        admin_tag,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="TagEntity" keyProperty="tag_srl" keyColumn="tag_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_tag (
+            <include refid="TagColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{member_srl},
+            #{tag_name},
+            #{admin_tag},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_tag
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="tag_name != null">
+                AND tag_name LIKE CONCAT('', #{tag_name}, '%')
+            </if>
+            <if test="admin_tag > 0">
+                AND admin_tag = #{admin_tag}
+            </if>
+        </where>
+        ORDER BY tag_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.TagEntity">
+        SELECT
+            tag_srl,
+            <include refid="TagColumn" />
+        FROM tbl_tag
+        <where>
+            <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                tag_srl = #{tag_srl}
+            </if>
+            <if test="_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0">
+                AND tag_srl IN
+                <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('tag_name') and tag_name != null">
+                AND tag_name LIKE CONCAT('', #{tag_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('admin_tag') and admin_tag > 0">
+                AND admin_tag = #{admin_tag}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY tag_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_tag_srl > 0 or target_app_srl > 0">
+            UPDATE tbl_tag
+            <set>
+                <if test="tagEntity.app_srl > 0">app_srl = #{tagEntity.app_srl},</if>
+                <if test="tagEntity.member_srl > 0">member_srl = #{tagEntity.member_srl},</if>
+                <if test="tagEntity.tag_name != null">tag_name = #{tagEntity.tag_name},</if>
+                <if test="tagEntity.admin_tag > 0">admin_tag = #{tagEntity.admin_tag},</if>
+                <if test="tagEntity.c_date > 0">c_date = #{tagEntity.c_date},</if>
+                <if test="tagEntity.u_date > 0">u_date = #{tagEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_tag_srl > 0">
+                    tag_srl = #{target_tag_srl}
+                </if>
+                <if test="target_app_srl > 0">
+                    AND app_srl = #{target_app_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('tag_srl') and tag_srl > 0) or (_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0)">
+            DELETE FROM tbl_tag
+            <where>
+                <if test="_parameter.containsKey('tag_srl') and tag_srl > 0">
+                    tag_srl = #{tag_srl}
+                </if>
+                <if test="_parameter.containsKey('tag_srls') and tag_srls != null and _parameter.get('tag_srls').size > 0">
+                    AND tag_srl IN
+                    <foreach item="item" index="index" collection="tag_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

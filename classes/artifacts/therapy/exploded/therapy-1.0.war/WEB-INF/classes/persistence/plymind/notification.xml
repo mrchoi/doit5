@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.push.NotificationDao">
+    <sql id="NotificationColumn">
+        application_group,
+        application_srl,
+        noti_type,
+        member_srl,
+        user_id,
+        push_title,
+        push_text,
+        callback_url,
+        push_status,
+        book_time,
+        noti_time1,
+        noti_time2,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="NotificationEntity" keyProperty="noti_srl" keyColumn="noti_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_plymind_noti (
+            <include refid="NotificationColumn" />
+        ) VALUES (
+            #{application_group},
+            #{application_srl},
+            #{noti_type},
+            #{member_srl},
+            #{user_id, jdbcType=VARCHAR},
+            #{push_title, jdbcType=VARCHAR},
+            #{push_text, jdbcType=VARCHAR},
+            #{callback_url, jdbcType=VARCHAR},
+            #{push_status},
+            #{book_time},
+            #{noti_time1},
+            #{noti_time2},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_plymind_noti
+        <where>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('noti_type') and noti_type > 0">
+                AND noti_type = #{noti_type}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND user_id = #{user_id}
+            </if>
+            <if test="_parameter.containsKey('push_status') and push_status > 0">
+                AND push_status = #{push_status}
+            </if>
+            <if test="_parameter.containsKey('book_time') and book_time > 0">
+                AND book_time &lt;= #{book_time}
+            </if>
+            <if test="_parameter.containsKey('noti_time1') and noti_time1 > 0">
+                AND noti_time1 &gt;= #{noti_time1}
+            </if>
+        </where>
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.NotificationEntity">
+        SELECT
+        noti_srl,
+        <include refid="NotificationColumn" />
+        FROM tbl_plymind_noti
+        <where>
+            <if test="_parameter.containsKey('noti_srl') and noti_srl > 0">
+                noti_srl = #{noti_srl}
+            </if>
+            <if test="_parameter.containsKey('application_group') and application_group > 0">
+                AND application_group = #{application_group}
+            </if>
+            <if test="_parameter.containsKey('application_srl') and application_srl > 0">
+                AND application_srl = #{application_srl}
+            </if>
+            <if test="_parameter.containsKey('noti_type') and noti_type > 0">
+                AND noti_type = #{noti_type}
+            </if>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND user_id = #{user_id}
+            </if>
+            <if test="_parameter.containsKey('push_status') and push_status > 0">
+                AND push_status = #{push_status}
+            </if>
+            <if test="_parameter.containsKey('book_time') and book_time > 0">
+                AND book_time &lt;= #{book_time}
+            </if>
+            <if test="_parameter.containsKey('noti_time1') and noti_time1 > 0">
+                AND noti_time1 &gt;= #{noti_time1}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY noti_time1 DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_noti_srl > 0">
+            UPDATE tbl_plymind_noti
+            <set>
+                <if test="notificationEntity.application_group > 0">application_group = #{notificationEntity.application_group},</if>
+                <if test="notificationEntity.application_srl > 0">application_srl = #{notificationEntity.application_srl},</if>
+                <if test="notificationEntity.noti_type > 0">noti_type = #{notificationEntity.noti_type},</if>
+                <if test="notificationEntity.member_srl > 0">member_srl = #{notificationEntity.member_srl},</if>
+                <if test="notificationEntity.user_id != null">user_id = #{notificationEntity.user_id},</if>
+                <if test="notificationEntity.push_title != null">push_title = #{notificationEntity.push_title},</if>
+                <if test="notificationEntity.push_text != null">push_text = #{notificationEntity.push_text},</if>
+                <if test="notificationEntity.callback_url != null">callback_url = #{notificationEntity.callback_url},</if>
+                <if test="notificationEntity.push_status > 0">push_status = #{notificationEntity.push_status},</if>
+                <if test="notificationEntity.book_time > 0">book_time = #{notificationEntity.book_time},</if>
+                <if test="notificationEntity.noti_time1 > 0">noti_time1 = #{notificationEntity.noti_time1},</if>
+                <if test="notificationEntity.noti_time2 != null">noti_time2 = #{notificationEntity.noti_time2}</if>
+            </set>
+            <where>
+                <if test="target_noti_srl > 0">
+                    noti_srl = #{target_noti_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+</mapper>

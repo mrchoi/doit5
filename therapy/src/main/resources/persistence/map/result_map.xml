@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckpush.result">
+    <resultMap id="DeviceEntity" type="DeviceEntity">
+        <id property="device_srl" column="device_srl" />
+        <result property="device_id" column="device_id" />
+        <result property="device_type" column="device_type" />
+        <result property="device_class" column="device_class" />
+        <result property="os_version" column="os_version" />
+        <result property="mobile_phone_number" column="mobile_phone_number" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="MemberEntity" type="MemberEntity">
+        <id property="member_srl" column="member_srl" />
+        <result property="user_id" column="user_id" />
+        <result property="email_address" column="email_address" />
+        <result property="user_password" column="user_password" />
+        <result property="user_name" column="user_name" />
+        <result property="nick_name" column="nick_name" />
+        <result property="mobile_phone_number" column="mobile_phone_number" />
+        <result property="allow_mailing" column="allow_mailing" />
+        <result property="allow_message" column="allow_message" />
+        <result property="description" column="description" />
+        <result property="last_login_date" column="last_login_date" />
+        <result property="change_password_date" column="change_password_date" />
+        <result property="enabled" column="enabled" />
+        <result property="email_confirm" column="email_confirm" />
+        <result property="sign_out" column="sign_out" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="MemberExtraEntity" type="MemberExtraEntity">
+        <id property="member_srl" column="member_srl" />
+        <result property="social_type" column="social_type" />
+        <result property="social_id" column="social_id" />
+        <result property="login_count" column="login_count" />
+        <result property="serial_login_count" column="serial_login_count" />
+        <result property="allow_temperature" column="allow_temperature" />
+        <result property="allow_distance" column="allow_distance" />
+        <result property="allow_battery" column="allow_battery" />
+        <result property="allow_call" column="allow_call" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+        <result property="group_gubun" column="group_gubun" />
+        <result property="birthday" column="birthday" />
+        <result property="job" column="job" />
+        <result property="marriage" column="marriage" />
+        <result property="children" column="children" />
+        <result property="religion" column="religion" />
+        <result property="religion_name" column="religion_name" />
+        <result property="disability" column="disability" />
+        <result property="disability_type" column="disability_type" />
+        <result property="disability_rate" column="disability_rate" />
+        <result property="academic" column="academic" />
+        <result property="gender" column="gender" />
+        <result property="certificate" column="certificate" />
+        <result property="kakao_id" column="kakao_id" />
+        <result property="self_introduction" column="self_introduction" />
+        <result property="advisor_class" column="advisor_class" />
+        <result property="user_group_srl" column="user_group_srl" />
+        <result property="academic_srl" column="academic_srl" />
+        <result property="class_srl" column="class_srl" />
+        <result property="domain_srl" column="domain_srl" />
+    </resultMap>
+
+    <resultMap id="MemberExtraInnerEntity" type="MemberExtraEntity" extends="MemberExtraEntity">
+        <result property="c_date" column="extra_c_date" />
+        <result property="u_date" column="extra_u_date" />
+    </resultMap>
+
+    <resultMap id="MemberDeviceEntity" type="MemberDeviceEntity">
+        <id property="member_srl" column="member_srl" />
+        <id property="app_srl" column="app_srl" />
+        <id property="device_srl" column="device_srl" />
+        <result property="mobile_phone_number" column="mobile_phone_number" />
+        <result property="allow_push_noti" column="allow_push_noti" />
+        <result property="push_noti_type" column="push_noti_type" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="MemberFullInfoEntity" type="MemberEntity" extends="MemberEntity">
+        <association property="memberExtraEntity" column="member_srl" javaType="MemberExtraEntity"
+                     resultMap="MemberExtraInnerEntity" />
+    </resultMap>
+
+    <resultMap id="GroupEntity" type="GroupEntity">
+        <id property="group_srl" column="group_srl" />
+        <result property="group_name" column="group_name" />
+        <result property="allow_default" column="allow_default" />
+        <result property="authority" column="authority" />
+        <result property="description" column="description" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="GroupMemberEntity" type="GroupMemberEntity">
+        <id property="group_srl" column="group_srl" />
+        <id property="member_srl" column="member_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="ServiceHistoryEntity" type="ServiceHistoryEntity">
+        <id property="history_srl" column="history_srl" />
+        <id property="c_date" column="c_date" />
+        <result property="history_type" column="history_type" />
+        <result property="member_srl" column="member_srl" />
+        <result property="history_content" column="history_content" />
+        <result property="history_url" column="history_url" />
+        <result property="ipaddress" column="ipaddress" />
+    </resultMap>
+
+    <resultMap id="SequenceEntity" type="SequenceEntity">
+        <id property="seq_type" column="seq_type" />
+        <result property="seq_no" column="seq_no" />
+    </resultMap>
+
+    <resultMap id="AppEntity" type="AppEntity">
+        <id property="app_srl" column="app_srl" />
+        <result property="app_id" column="app_id" />
+        <result property="app_name" column="app_name" />
+        <result property="app_version" column="app_version" />
+        <result property="api_key" column="api_key" />
+        <result property="api_secret" column="api_secret" />
+        <result property="enabled" column="enabled" />
+        <result property="reg_terminal" column="reg_terminal" />
+        <result property="reg_push_terminal" column="reg_push_terminal" />
+        <result property="push_count" column="push_count" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="AppDeviceEntity" type="AppDeviceEntity">
+        <id property="app_srl" column="app_srl" />
+        <id property="device_srl" column="device_srl" />
+        <result property="push_id" column="push_id" />
+        <result property="reg_push_id" column="reg_push_id" />
+        <result property="allow_push" column="allow_push" />
+        <result property="enabled" column="enabled" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="AppDeviceInnerEntity" type="AppDeviceEntity" extends="AppDeviceEntity">
+        <result property="c_date" column="mapping_c_date" />
+        <result property="u_date" column="mapping_u_date" />
+    </resultMap>
+
+    <resultMap id="DeviceMappingInfoEntity" type="DeviceEntity" extends="DeviceEntity">
+        <association property="appDeviceEntity" column="device_srl" javaType="AppDeviceEntity"
+                     resultMap="AppDeviceInnerEntity" />
+    </resultMap>
+
+    <resultMap id="PushMessageEntity" type="PushMessageEntity">
+        <id property="push_srl" column="push_srl" />
+        <id property="app_srl" column="app_srl" />
+        <result property="user_id" column="user_id" />
+        <result property="push_title" column="push_title" />
+        <result property="push_text" column="push_text" />
+        <result property="callback_url" column="callback_url" />
+        <result property="push_target" column="push_target" />
+        <result property="total_count" column="total_count" />
+        <result property="total_real_count" column="total_real_count" />
+        <result property="success_count" column="success_count" />
+        <result property="fail_count" column="fail_count" />
+        <result property="fail_real_count" column="fail_real_count" />
+        <result property="received_count" column="received_count" />
+        <result property="confirm_count" column="confirm_count" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="FileEntity" type="FileEntity">
+        <id property="file_srl" column="file_srl" />
+        <result property="orig_name" column="orig_name" />
+        <result property="file_size" column="file_size" />
+        <result property="file_path" column="file_path" />
+        <result property="file_url" column="file_url" />
+        <result property="width" column="width" />
+        <result property="height" column="height" />
+        <result property="thumb_path" column="thumb_path" />
+        <result property="thumb_url" column="thumb_url" />
+        <result property="thumb_width" column="thumb_width" />
+        <result property="thumb_height" column="thumb_height" />
+        <result property="ipaddress" column="ipaddress" />
+        <result property="deleted" column="deleted" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <!-- FileEntity 를 extend 시키지 않고 일부러 분리 하였음 -->
+    <resultMap id="FileRepositoryEntity" type="FileRepositoryEntity">
+        <id property="file_srl" column="file_srl" />
+        <result property="orig_name" column="orig_name" />
+        <result property="mime_type" column="mime_type" />
+        <result property="file_size" column="file_size" />
+        <result property="file_path" column="file_path" />
+        <result property="file_url" column="file_url" />
+        <result property="width" column="width" />
+        <result property="height" column="height" />
+        <result property="thumb_path" column="thumb_path" />
+        <result property="thumb_url" column="thumb_url" />
+        <result property="thumb_width" column="thumb_width" />
+        <result property="thumb_height" column="thumb_height" />
+        <result property="file_comment" column="file_comment" />
+        <result property="user_id" column="user_id" />
+        <result property="ipaddress" column="ipaddress" />
+        <result property="deleted" column="deleted" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+        <result property="file_type" column="file_type" />
+    </resultMap>
+
+    <resultMap id="DocumentAttachEntity" type="DocumentAttachEntity">
+        <id property="file_srl" column="file_srl" />
+        <result property="orig_name" column="orig_name" />
+        <result property="mime_type" column="mime_type" />
+        <result property="file_size" column="file_size" />
+        <result property="file_path" column="file_path" />
+        <result property="file_url" column="file_url" />
+        <result property="width" column="width" />
+        <result property="height" column="height" />
+        <result property="thumb_path" column="thumb_path" />
+        <result property="thumb_url" column="thumb_url" />
+        <result property="thumb_width" column="thumb_width" />
+        <result property="thumb_height" column="thumb_height" />
+        <result property="file_comment" column="file_comment" />
+        <result property="ipaddress" column="ipaddress" />
+        <result property="member_srl" column="member_srl" />
+        <result property="deleted" column="deleted" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="FileInnerEntity" type="FileEntity" extends="FileEntity">
+        <result property="c_date" column="file_c_date" />
+    </resultMap>
+
+    <resultMap id="DocumentAttachInnerEntity" type="DocumentAttachEntity" extends="DocumentAttachEntity">
+        <result property="c_date" column="file_c_date" />
+    </resultMap>
+
+    <resultMap id="MemberPicEntity" type="MemberPicEntity">
+        <id property="member_srl" column="member_srl" />
+        <id property="file_srl" column="file_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <!-- 하나로 묶을 것이기 때문에 MemberPicEntity 를 extends 받으면 안됨(file_srl 이 다르기 때문에 하나로 묶이지 않음) -->
+    <resultMap id="MemberPicAndFileEntity" type="MemberPicEntity">
+        <id property="member_srl" column="member_srl" />
+        <result property="c_date" column="c_date" />
+        <collection property="fileEntities" column="file_srl" ofType="FileEntity"
+                    javaType="java.util.List" resultMap="FileInnerEntity" />
+    </resultMap>
+
+    <resultMap id="PushMessagePicEntity" type="PushMessagePicEntity">
+        <id property="push_srl" column="push_srl" />
+        <id property="file_srl" column="file_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <!-- 하나로 묶을 것이기 때문에 PushMessagePicEntity 를 extends 받으면 안됨(file_srl 이 다르기 때문에 하나로 묶이지 않음) -->
+    <resultMap id="PushMessagePicAndFileEntity" type="PushMessagePicEntity">
+        <id property="push_srl" column="push_srl" />
+        <result property="c_date" column="c_date" />
+        <collection property="fileEntities" column="file_srl" ofType="FileEntity"
+                    javaType="java.util.List" resultMap="FileInnerEntity" />
+    </resultMap>
+
+    <resultMap id="DocumentFileEntity" type="DocumentFileEntity">
+        <id property="document_srl" column="document_srl" />
+        <id property="file_srl" column="file_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+
+    <!-- 하나로 묶을 것이기 때문에 DocumentFileEntity 를 extends 받으면 안됨(file_srl 이 다르기 때문에 하나로 묶이지 않음) -->
+    <resultMap id="DocumentFileAndFileEntity" type="DocumentFileEntity">
+        <id property="document_srl" column="document_srl" />
+        <result property="c_date" column="c_date" />
+        <collection property="documentAttachEntities" column="file_srl" ofType="DocumentAttachEntity"
+                    javaType="java.util.List" resultMap="DocumentAttachInnerEntity" />
+    </resultMap>
+
+    <resultMap id="DeviceAccessTokenEntity" type="DeviceAccessTokenEntity">
+        <id property="token_srl" column="token_srl" />
+        <result property="device_srl" column="device_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="access_token" column="access_token" />
+        <result property="token_expire" column="token_expire" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="MemberAccessTokenEntity" type="MemberAccessTokenEntity">
+        <id property="token_srl" column="token_srl" />
+        <result property="member_srl" column="member_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="access_token" column="access_token" />
+        <result property="token_expire" column="token_expire" />
+        <result property="user_data" column="user_data" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+    
+    <resultMap id="AppGroupEntity" type="AppGroupEntity">
+        <id property="app_group_srl" column="app_group_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="group_name" column="group_name" />
+        <result property="group_description" column="group_description" />
+        <result property="group_type" column="group_type" />
+        <result property="authority" column="authority" />
+        <result property="enabled" column="enabled" />
+        <result property="allow_default" column="allow_default" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="AppGroupMemberEntity" type="AppGroupMemberEntity">
+        <id property="app_group_srl" column="app_group_srl" />
+        <id property="member_srl" column="member_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="AppMemberEntity" type="AppMemberEntity">
+        <id property="app_srl" column="app_srl" />
+        <id property="member_srl" column="member_srl" />
+        <result property="nick_name" column="nick_name" />
+        <result property="allow_mailing" column="allow_mailing" />
+        <result property="allow_message" column="allow_message" />
+        <result property="last_login_date" column="last_login_date" />
+        <result property="enabled" column="enabled" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="TemplateEntity" type="TemplateEntity">
+        <id property="template_srl" column="template_srl" />
+        <result property="template_title" column="template_title" />
+        <result property="template_content" column="template_content" />
+        <result property="template_description" column="template_description" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="AppTemplateEntity" type="AppTemplateEntity">
+        <id property="app_srl" column="app_srl" />
+        <id property="template_srl" column="template_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="DocumentBoardEntity" type="DocumentBoardEntity">
+        <id property="board_srl" column="board_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="board_name" column="board_name" />
+        <result property="board_description" column="board_description" />
+        <result property="enabled" column="enabled" />
+        <result property="open_type" column="open_type" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="DocumentCategoryEntity" type="DocumentCategoryEntity">
+        <id property="category_srl" column="category_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="board_srl" column="board_srl" />
+        <result property="category_name" column="category_name" />
+        <result property="category_description" column="category_description" />
+        <result property="category_type" column="category_type" />
+        <result property="enabled" column="enabled" />
+        <result property="open_type" column="open_type" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="DocumentEntity" type="DocumentEntity">
+        <id property="document_srl" column="document_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="board_srl" column="board_srl" />
+        <result property="category_srl" column="category_srl" />
+        <result property="document_title" column="document_title" />
+        <result property="document_content" column="document_content" />
+        <result property="read_count" column="read_count" />
+        <result property="like_count" column="like_count" />
+        <result property="blame_count" column="blame_count" />
+        <result property="comment_count" column="comment_count" />
+        <result property="file_count" column="file_count" />
+        <result property="outer_link" column="outer_link" />
+        <result property="secret" column="secret" />
+        <result property="block" column="block" />
+        <result property="allow_comment" column="allow_comment" />
+        <result property="allow_notice" column="allow_notice" />
+        <result property="list_order" column="list_order" />
+        <result property="template_srl" column="template_srl" />
+        <result property="template_extra" column="template_extra" />
+        <result property="member_srl" column="member_srl" />
+        <result property="user_id" column="user_id" />
+        <result property="user_name" column="user_name" />
+        <result property="nick_name" column="nick_name" />
+        <result property="email_address" column="email_address" />
+        <result property="document_password" column="document_password" />
+        <result property="ipaddress" column="ipaddress" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="DocumentCommentEntity" type="DocumentCommentEntity">
+        <id property="comment_srl" column="comment_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="board_srl" column="board_srl" />
+        <result property="category_srl" column="category_srl" />
+        <result property="document_srl" column="document_srl" />
+        <result property="head_comment_srl" column="head_comment_srl" />
+        <result property="parent_comment_srl" column="parent_comment_srl" />
+        <result property="comment_depth" column="comment_depth" />
+        <result property="comment_content" column="comment_content" />
+        <result property="like_count" column="like_count" />
+        <result property="blame_count" column="blame_count" />
+        <result property="comment_count" column="comment_count" />
+        <result property="child_comment_count" column="child_comment_count" />
+        <result property="file_count" column="file_count" />
+        <result property="block" column="block" />
+        <result property="member_srl" column="member_srl" />
+        <result property="user_id" column="user_id" />
+        <result property="user_name" column="user_name" />
+        <result property="nick_name" column="nick_name" />
+        <result property="email_address" column="email_address" />
+        <result property="ipaddress" column="ipaddress" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="DocumentLinkEntity" type="DocumentLinkEntity">
+        <id property="document_link_srl" column="document_link_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="board_srl" column="board_srl" />
+        <result property="category_srl" column="category_srl" />
+        <result property="document_srl" column="document_srl" />
+        <result property="list_order" column="list_order" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="DocumentInnerEntity" type="DocumentEntity" extends="DocumentEntity">
+        <result property="app_srl" column="document_app_srl" />
+        <result property="board_srl" column="document_board_srl" />
+        <result property="category_srl" column="document_category_srl" />
+        <result property="list_order" column="document_list_order" />
+        <result property="c_date" column="document_c_date" />
+    </resultMap>
+
+    <resultMap id="DocumentLinkFullEntity" type="DocumentLinkEntity" extends="DocumentLinkEntity">
+        <association property="documentEntity" column="document_srl" javaType="DocumentEntity"
+                     resultMap="DocumentInnerEntity" />
+    </resultMap>
+
+    <resultMap id="TagEntity" type="TagEntity">
+        <id property="tag_srl" column="tag_srl" />
+        <result property="app_srl" column="app_srl" />
+        <result property="member_srl" column="member_srl" />
+        <result property="tag_name" column="tag_name" />
+        <result property="admin_tag" column="admin_tag" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <!--
+    <resultMap id="TagInnerEntity" type="TagEntity" extends="TagEntity">
+        <result property="c_date" column="tag_c_date" />
+    </resultMap>
+    -->
+
+    <resultMap id="DocumentTagEntity" type="DocumentTagEntity">
+        <id property="document_srl" column="document_srl" />
+        <id property="tag_srl" column="tag_srl" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="DocumentTagFullEntity" type="DocumentTagEntity">
+        <id property="document_srl" column="document_srl" />
+        <id property="tag_srl" column="tag_srl" />
+        <result property="c_date" column="tag_c_date" />
+        <association property="documentEntity" column="document_srl" javaType="DocumentEntity"
+                     resultMap="DocumentEntity" />
+    </resultMap>
+
+    <resultMap id="DocumentTagLinkFullEntity" type="DocumentTagEntity">
+        <id property="document_link_srl" column="document_link_srl" />
+        <id property="tag_srl" column="tag_srl" />
+        <result property="c_date" column="tag_c_date" />
+        <association property="documentLinkEntity" column="document_link_srl" javaType="DocumentLinkEntity"
+                     resultMap="DocumentLinkFullEntity">
+            <association property="documentEntity" column="document_srl" javaType="DocumentEntity"
+                         resultMap="DocumentInnerEntity" />
+        </association>
+    </resultMap>
+
+    <!--
+    <resultMap id="DocumentTagWithTagEntity" type="DocumentTagEntity" extends="DocumentTagEntity">
+        <association property="tagEntity" column="tag_srl" javaType="TagEntity" resultMap="TagInnerEntity" />
+    </resultMap>
+    -->
+
+    <resultMap id="PretestingEntity" type="PretestingEntity">
+        <id property="item_srl" column="item_srl" />
+        <result property="member_srl" column="member_srl" />
+        <result property="item" column="item" />
+        <result property="kind_srl" column="kind_srl" />
+        <result property="kind" column="kind" />
+        <result property="question_srl" column="question_srl" />
+        <result property="question" column="question" />
+        <result property="contents" column="contents" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="ProductEntity" type="ProductEntity">
+        <id property="product_srl" column="product_srl" />
+        <result property="contents_srl" column="contents_srl" />
+        <result property="description" column="description" />
+        <result property="contents" column="contents" />
+        <result property="advice_time" column="advice_time" />
+        <result property="method" column="method" />
+        <result property="kind" column="kind" />
+        <result property="title" column="title" />
+        <result property="advice_type" column="advice_type" />
+        <result property="advice_period" column="advice_period" />
+        <result property="advice_number" column="advice_number" />
+        <result property="advice_price" column="advice_price" />
+        <result property="benefit" column="benefit" />
+    </resultMap>
+
+    <resultMap id="ApplicationEntity" type="ApplicationEntity">
+        <id property="application_srl" column="application_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="application_number" column="application_number" />
+        <result property="application_status" column="application_status" />
+        <result property="member_srl" column="member_srl" />
+        <result property="product_srl" column="product_srl" />
+        <result property="advisor_srl" column="advisor_srl" />
+        <result property="start_date" column="start_date" />
+        <result property="end_date" column="end_date" />
+        <result property="push_date" column="push_date" />
+        <result property="push_time" column="push_time" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+        <result property="kind" column="kind" />
+        <result property="title" column="title" />
+        <result property="advice_type" column="advice_type" />
+        <result property="advice_period" column="advice_period" />
+        <result property="advice_number" column="advice_number" />
+        <result property="receive_name" column="receive_name" />
+        <result property="receive_phone" column="receive_phone" />
+        <result property="receive_address" column="receive_address" />
+    </resultMap>
+
+    <resultMap id="AppointmentEntity" type="AppointmentEntity">
+        <id property="appointment_srl" column="appointment_srl" />
+        <result property="member_srl" column="member_srl" />
+        <result property="advisor_srl" column="advisor_srl" />
+        <result property="application_srl" column="application_srl" />
+        <result property="appointment_date" column="appointment_date" />
+        <result property="appointment_time" column="appointment_time" />
+        <result property="appointment_status" column="appointment_status" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+        <result property="product_srl" column="product_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="application_number" column="application_number" />
+        <result property="user_name" column="user_name" />
+    </resultMap>
+
+    <resultMap id="PaymentEntity" type="PaymentEntity">
+        <id property="payment_srl" column="payment_srl" />
+        <result property="member_srl" column="member_srl" />
+        <result property="product_srl" column="product_srl" />
+        <result property="title" column="title" />
+        <result property="payment_name" column="payment_name" />
+        <result property="payment_phone" column="payment_phone" />
+        <result property="price" column="price" />
+        <result property="receipt_kind" column="receipt_kind" />
+        <result property="receipt_phone" column="receipt_phone" />
+        <result property="payment_status" column="payment_status" />
+        <result property="refund_bank" column="refund_bank" />
+        <result property="refund_account" column="refund_account" />
+        <result property="refund_name" column="refund_name" />
+        <result property="cancel_date" column="cancel_date" />
+        <result property="reporting_date" column="reporting_date" />
+        <result property="payment_date" column="payment_date" />
+        <result property="refund_req_date" column="refund_req_date" />
+        <result property="refund_date" column="refund_date" />
+    </resultMap>
+
+    <resultMap id="AddressEntity" type="AddressEntity">
+        <id property="address_srl" column="document_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="receive_name" column="receive_name" />
+        <result property="receive_phone" column="receive_phone" />
+        <result property="receive_address" column="receive_address" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="DiaryEntity" type="DiaryEntity">
+        <id property="diary_srl" column="diary_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="mind_diary" column="mind_diary" />
+        <result property="c_date" column="c_date" />
+        <result property="u_date" column="u_date" />
+    </resultMap>
+
+    <resultMap id="PushEntity" type="PushEntity">
+        <id property="push_srl" column="push_srl" />
+        <result property="application_srl" column="application_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="application_number" column="application_number" />
+        <result property="application_status" column="application_status" />
+        <result property="push_contents" column="push_contents" />
+        <result property="push_date1" column="push_date1" />
+        <result property="push_date2" column="push_date2" />
+    </resultMap>
+
+    <resultMap id="NotificationEntity" type="NotificationEntity">
+        <id property="noti_srl" column="noti_srl" />
+        <result property="application_srl" column="application_srl" />
+        <result property="noti_type" column="noti_type" />
+        <result property="user_id" column="user_id" />
+        <result property="push_title" column="push_title" />
+        <result property="push_text" column="push_text" />
+        <result property="callback_url" column="callback_url" />
+        <result property="push_status" column="push_status" />
+        <result property="book_time" column="book_time" />
+        <result property="noti_time1" column="noti_time1" />
+        <result property="noti_time2" column="noti_time2" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="PlymindDocumentEntity" type="PlymindDocumentEntity">
+        <id property="document_srl" column="document_srl" />
+        <result property="application_srl" column="application_srl" />
+        <result property="application_group" column="application_group" />
+        <result property="advisor_comment" column="advisor_comment" />
+        <result property="checkup_file_srl" column="checkup_file_srl" />
+        <result property="reply_file_srl" column="reply_file_srl" />
+        <result property="result_file_srl" column="result_file_srl" />
+        <result property="checkup_date" column="checkup_date" />
+        <result property="reply_date" column="reply_date" />
+        <result property="result_date" column="result_date" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="HolidayEntity" type="HolidayEntity">
+        <id property="holiday_srl" column="holiday_srl" />
+        <result property="holiday_title" column="holiday_title" />
+        <result property="holiday_date" column="holiday_date" />
+        <result property="c_date" column="c_date" />
+    </resultMap>
+
+    <resultMap id="AdvicedomainEntity" type="AdvicedomainEntity">
+        <id property="advicedoamin_srl" column="advicedoamin_srl" />
+        <result property="advicedoamin_type" column="advicedoamin_type" />
+        <result property="member_srl" column="member_srl" />
+        <result property="advice_domain" column="advice_domain" />
+    </resultMap>
+
+    <resultMap id="ZipCodeEntity" type="ZipCodeEntity">
+        <id property="zipcode_srl" column="zipcode_srl" />
+        <result property="zipcode" column="zipcode" />
+        <result property="sido" column="sido" />
+        <result property="sigungu" column="sigungu" />
+        <result property="dong" column="dong" />
+        <result property="doromyung" column="doromyung" />
+        <result property="konmulbunho_bonbun" column="konmulbunho_bonbun"/>
+        <result property="konmulbunho_bubun" column="konmulbunho_bubun" />
+        <result property="konmul_myung" column="konmul_myung" />
+        <result property="bubjungdong" column="bubjungdong" />
+        <result property="ri" column="ri" />
+        <result property="hangjungdong" column="hangjungdong" />
+        <result property="jibunbonbun" column="jibunbonbun" />
+        <result property="jibunbubun" column="jibunbubun" />
+    </resultMap>
+
+</mapper>

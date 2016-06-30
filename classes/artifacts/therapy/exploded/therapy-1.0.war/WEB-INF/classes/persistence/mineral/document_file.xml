@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.mineral.DocumentFileDao">
+    <sql id="DocumentFileColumn">
+        document_srl,
+        file_srl,
+        c_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentFileEntity">
+        INSERT INTO tbl_document_file (
+            <include refid="DocumentFileColumn" />
+        ) VALUES (
+            #{document_srl},
+            #{file_srl},
+            #{c_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_file
+        <where>
+            <if test="document_srl > 0">
+                document_srl = #{document_srl}
+            </if>
+            <if test="file_srl > 0">
+                AND file_srl = #{file_srl}
+            </if>
+        </where>
+        ORDER BY file_srl DESC, document_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentFileEntity">
+        SELECT <include refid="DocumentFileColumn" />
+        FROM tbl_document_file
+        <where>
+            <if test="document_srl > 0">
+                document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="file_srl > 0">
+                AND file_srl = #{file_srl}
+            </if>
+            <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                AND file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY file_srl DESC, document_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getAndFile" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentFileAndFileEntity">
+        SELECT
+            A.document_srl as document_srl,
+            A.file_srl as file_srl,
+            A.c_date as c_date,
+            B.orig_name as orig_name,
+            B.mime_type as mime_type,
+            B.file_size as file_size,
+            B.file_path as file_path,
+            B.file_url as file_url,
+            B.width as width,
+            B.height as height,
+            B.thumb_path as thumb_path,
+            B.thumb_url as thumb_url,
+            B.thumb_width as thumb_width,
+            B.thumb_height as thumb_height,
+            B.file_comment as file_comment,
+            B.ipaddress as ipaddress,
+            B.member_srl as member_srl,
+            B.deleted as deleted,
+            B.c_date as file_c_date,
+            B.u_date as u_date
+        FROM tbl_document_file A
+        LEFT JOIN tbl_document_attach B
+        ON A.file_srl = B.file_srl
+        <where>
+            <if test="_parameter.containsKey('document_srl') and document_srl > 0">
+                A.document_srl = #{document_srl}
+            </if>
+            <if test="_parameter.containsKey('document_srls') and document_srls != null and _parameter.get('document_srls').size > 0">
+                AND A.document_srl IN
+                <foreach item="item" index="index" collection="document_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="deleted > 0">
+                AND B.deleted = #{deleted}
+            </if>
+        </where>
+        ORDER BY A.document_srl DESC, A.file_srl ASC
+    </select>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="document_srl > 0 or file_srl > 0">
+            DELETE FROM tbl_document_file
+            <where>
+                <if test="document_srl > 0">
+                    document_srl = #{document_srl}
+                </if>
+                <if test="file_srl > 0">
+                    AND file_srl = #{file_srl}
+                </if>
+                <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                    AND file_srl IN
+                    <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

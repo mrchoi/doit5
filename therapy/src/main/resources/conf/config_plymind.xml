@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>Plymind 환경 설정</comment>
+
+    <!-- GCM, APNs Push -->
+    <!-- Push 타겟: 앱에 가입된 전체 단말 -->
+    <entry key="push_target_all_in_app">__all</entry>
+    <!-- Push 타겟: 앱에 가입된 단말 하나 -->
+    <entry key="push_target_unit_in_app">__unit</entry>
+
+    <!-- Ras -->
+    <!-- ras event queue -->
+    <entry key="ras_event_queue">queue.event</entry>
+    <!-- apns, gcm 보낼때 사용되는 pid 고정값 -->
+    <entry key="ras_gcm_apns_push_pid">ES</entry>
+    <!-- 너나들이, 공지사항 gcm 보낼때 사용되는 event type -->
+    <entry key="ras_plymind_gcm_event_type">pm-notice-gcm</entry>
+    <!-- 너나들이, 공지사항 apns 보낼때 사용되는 event type -->
+    <entry key="ras_plymind_apns_event_type">pm-notice-apns</entry>
+    <!-- apns, gcm 보낼때 사용되는 event type -->
+    <entry key="ras_gcm_apns_event_type">pm-therapy</entry>
+    <!-- plymind app_id -->
+    <entry key="ras_gcm_apns_app_id">plymind</entry>
+
+</properties>

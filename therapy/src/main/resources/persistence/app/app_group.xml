@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.app.AppGroupDao">
+    <sql id="AppGroupColumn">
+        app_srl,
+        group_name,
+        group_description,
+        group_type,
+        authority,
+        enabled,
+        allow_default,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="AppGroupEntity" keyProperty="app_group_srl" keyColumn="app_group_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_app_group (
+            <include refid="AppGroupColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{group_name},
+            #{group_description, jdbcType=VARCHAR},
+            #{group_type},
+            #{authority},
+            #{enabled},
+            #{allow_default},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_app_group
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="group_name != null">
+                AND group_name LIKE CONCAT('', #{group_name}, '%')
+            </if>
+            <if test="group_type > 0">
+                AND group_type = #{group_type}
+            </if>
+            <if test="authority != null">
+                AND authority = #{authority}
+            </if>
+            <if test="enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="allow_default > 0">
+                AND allow_default = #{allow_default}
+            </if>
+        </where>
+        ORDER BY app_group_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.AppGroupEntity">
+        SELECT
+            app_group_srl,
+            <include refid="AppGroupColumn" />
+        FROM
+            tbl_app_group
+        <where>
+            <if test="_parameter.containsKey('app_group_srl') and app_group_srl > 0">
+                app_group_srl = #{app_group_srl}
+            </if>
+            <if test="_parameter.containsKey('app_group_srls') and app_group_srls != null and _parameter.get('app_group_srls').size > 0">
+                AND app_group_srl IN
+                <foreach item="item" index="index" collection="app_group_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('group_name') and group_name != null">
+                AND group_name LIKE CONCAT('', #{group_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('group_type') and group_type > 0">
+                AND group_type = #{group_type}
+            </if>
+            <if test="_parameter.containsKey('authority') and authority != null">
+                AND authority = #{authority}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('allow_default') and allow_default > 0">
+                AND allow_default = #{allow_default}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY app_group_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_app_group_srl > 0 or target_app_srl > 0">
+            UPDATE tbl_app_group
+            <set>
+                <if test="appGroupEntity.group_name != null">group_name = #{appGroupEntity.group_name},</if>
+                <if test="appGroupEntity.group_description > 0">group_description = #{appGroupEntity.group_description},</if>
+                <if test="appGroupEntity.group_type > 0">group_type = #{appGroupEntity.group_type},</if>
+                <if test="appGroupEntity.authority > 0">authority = #{appGroupEntity.authority},</if>
+                <if test="appGroupEntity.enabled > 0">enabled = #{appGroupEntity.enabled},</if>
+                <if test="appGroupEntity.allow_default > 0">allow_default = #{appGroupEntity.allow_default},</if>
+                <if test="appGroupEntity.c_date > 0">c_date = #{appGroupEntity.c_date},</if>
+                <if test="appGroupEntity.u_date > 0">u_date = #{appGroupEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_app_group_srl > 0">
+                    app_group_srl = #{target_app_group_srl}
+                </if>
+                <if test="target_app_srl > 0">
+                    AND app_srl = #{target_app_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('app_group_srl') and app_group_srl > 0) or (_parameter.containsKey('app_srl') and app_srl > 0)">
+            DELETE FROM tbl_app_group
+            <where>
+                <if test="_parameter.containsKey('app_group_srl') and app_group_srl > 0">
+                    app_group_srl = #{app_group_srl}
+                </if>
+                <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                    AND app_srl = #{app_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

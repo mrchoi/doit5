@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="../conf/context.xml" />
+    <import resource="../conf/databases.xml" />
+
+    <!-- reader -->
+    <bean id="itemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+        <property name="dataSource" ref="dataSource1" />
+        <property name="sql">
+            <value>
+                <![CDATA[
+                    SELECT COUNT(1) as cnt, UNIX_TIMESTAMP(STR_TO_DATE('20150921', '%Y%m%d')) as timestamp
+                    FROM (
+                        SELECT DISTINCT
+                            B.member_srl as member_srl
+                        FROM tbl_app_group A
+                        LEFT JOIN tbl_app_group_member B
+                        ON A.app_group_srl = B.app_group_srl
+                        WHERE
+                            B.app_group_srl IS NOT NULL
+                            AND B.member_srl IS NOT NULL
+                            AND A.app_srl = 1025
+                    ) C
+                    LEFT JOIN tbl_member D
+                    ON C.member_srl = D.member_srl
+                    WHERE
+                        D.c_date >= UNIX_TIMESTAMP(STR_TO_DATE('20150921', '%Y%m%d'))
+                        AND D.c_date < UNIX_TIMESTAMP(STR_TO_DATE('20150922', '%Y%m%d'))
+                ]]>
+            </value>
+        </property>
+        <property name="rowMapper">
+            <bean class="com.ckstack.ckpush.batch.mapper.Subscribe1RowMapper" />
+        </property>
+    </bean>
+
+    <!-- processor -->
+
+
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.plymind.PretestingDao">
+
+    <insert id="add" parameterType="PretestingEntity" keyProperty="application_srl" keyColumn="application_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_pretesting_application (
+        member_srl, question_srl, kind_srl, item_srl, contents, c_date
+        ) VALUES (
+        #{member_srl},
+        #{question_srl},
+        #{kind_srl},
+        #{item_srl},
+        #{contents},
+        #{c_date}
+        )
+    </insert>
+
+    <select id="info" resultMap="com.ckpush.result.PretestingEntity">
+        SELECT application_srl, member_srl, question_srl, kind_srl, item_srl, contents, c_date
+        FROM tbl_pretesting_application
+        <where>
+            member_srl = #{member_srl} AND c_date &gt; #{c_date}
+        </where>
+        ORDER BY application_srl ASC
+    </select>
+
+    <select id="get" resultMap="com.ckpush.result.PretestingEntity">
+        SELECT t_question.question_srl AS question_srl, t_question.question AS question, t_kind.kind_srl AS kind_srl, t_kind.kind AS kind, t_item.item_srl AS item_srl, t_item.item AS item
+        FROM tbl_pretesting_item t_item, tbl_pretesting_question t_question, tbl_pretesting_kind t_kind
+        WHERE t_item.question_srl = t_question.question_srl
+        AND t_item.kind_srl = t_kind.kind_srl
+        ORDER BY t_question.sort ASC, t_kind.sort ASC, t_item.sort ASC
+    </select>
+
+    <select id="getQuestion" resultMap="com.ckpush.result.PretestingEntity">
+        SELECT question_srl, question FROM tbl_pretesting_question ORDER BY sort ASC
+    </select>
+
+    <select id="getKind" resultMap="com.ckpush.result.PretestingEntity">
+        SELECT kind_srl, kind FROM tbl_pretesting_kind ORDER BY sort ASC
+    </select>
+
+    <select id="getItem" resultMap="com.ckpush.result.PretestingEntity">
+        SELECT item_srl, item FROM tbl_pretesting_item ORDER BY sort ASC
+    </select>
+
+    <delete id="delete" parameterType="java.util.Map">
+        DELETE FROM tbl_pretesting_application WHERE member_srl = #{member_srl} AND c_date =  #{c_date}
+    </delete>
+</mapper>

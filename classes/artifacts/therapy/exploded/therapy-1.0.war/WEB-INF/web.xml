@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+
+    <display-name>ckpush-mvc</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring/application-config.xml
+            classpath:spring/security-context.xml
+            classpath:database/redis-context.xml
+            classpath:database/mybatis-context.xml
+        </param-value>
+    </context-param>
+
+    <!-- use was database jndi -->
+    <resource-ref>
+        <description>ckpush_db connection</description>
+        <res-ref-name>jdbc/doit5_db</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>javaEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+
+    <!-- check ajax session timeout filter -->
+    <filter>
+        <filter-name>ajaxSessionTimeoutFilter</filter-name>
+        <filter-class>com.ckstack.ckpush.common.filter.AjaxSessionTimeoutFilter</filter-class>
+        <init-param>
+            <param-name>ajaxSessionTimeoutHttpCode</param-name>
+            <param-value>901</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ajaxSessionTimeoutFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- allow cross domain filter -->
+    <filter>
+        <filter-name>crossDomainFilter</filter-name>
+        <filter-class>com.ckstack.ckpush.common.filter.CrosDomainFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>crossDomainFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--
+        <error-page>
+            <error-code>400</error-code>
+            <location>/error/400</location>
+        </error-page>
+        <error-page>
+            <error-code>403</error-code>
+            <location>/error/403</location>
+        </error-page>
+        <error-page>
+            <error-code>404</error-code>
+            <location>/error/404</location>
+        </error-page>
+    -->
+    <!-- http error 405 will handle in spring MVC -->
+    <!--
+    <error-page>
+    	<error-code>405</error-code>
+    	<location>/error/405</location>
+    </error-page>
+    -->
+    <!--
+        <error-page>
+            <error-code>415</error-code>
+            <location>/error/415</location>
+        </error-page>
+    -->
+
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>js</extension>
+        <mime-type>text/javascript</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>html</extension>
+        <mime-type>text/html</mime-type>
+    </mime-mapping>
+
+</web-app>

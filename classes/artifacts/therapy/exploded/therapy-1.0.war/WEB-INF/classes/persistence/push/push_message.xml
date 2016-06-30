@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.push.PushMessageDao">
+    <sql id="PushMessageColumn">
+        app_srl,
+        user_id,
+        push_title,
+        push_text,
+        callback_url,
+        push_target,
+        total_count,
+        total_real_count,
+        success_count,
+        fail_count,
+        fail_real_count,
+        received_count,
+        confirm_count,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="PushMessageEntity" keyProperty="push_srl" keyColumn="push_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_push_message (
+            <include refid="PushMessageColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{user_id},
+            #{push_title},
+            #{push_text, jdbcType=LONGVARCHAR},
+            #{callback_url, jdbcType=VARCHAR},
+            #{push_target},
+            #{total_count, jdbcType=NUMERIC},
+            #{total_real_count, jdbcType=NUMERIC},
+            #{success_count, jdbcType=NUMERIC},
+            #{fail_count, jdbcType=NUMERIC},
+            #{fail_real_count, jdbcType=NUMERIC},
+            #{received_count, jdbcType=NUMERIC},
+            #{confirm_count, jdbcType=NUMERIC},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_push_message
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('push_title') and push_title != null">
+                AND push_title LIKE CONCAT('', #{push_title}, '%')
+            </if>
+            <if test="max_push_srl > 0">
+                AND push_srl &lt; #{max_push_srl}
+            </if>
+        </where>
+        ORDER BY push_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.PushMessageEntity">
+        SELECT
+            push_srl,
+            <include refid="PushMessageColumn" />
+        FROM tbl_push_message
+        <where>
+            <if test="_parameter.containsKey('push_srl') and push_srl > 0">
+                push_srl = #{push_srl}
+            </if>
+            <if test="_parameter.containsKey('push_srls') and push_srls != null and _parameter.get('push_srls').size > 0">
+                AND push_srl IN
+                <foreach item="item" index="index" collection="push_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('push_title') and push_title != null">
+                AND push_title LIKE CONCAT('', #{push_title}, '%')
+            </if>
+            <if test="_parameter.containsKey('max_push_srl') and max_push_srl > 0">
+                AND push_srl &lt; #{max_push_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY push_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <delete id="delete" parameterType="long">
+        <if test="value > 0">
+            DELETE FROM tbl_push_message
+            WHERE push_srl = #{value}
+        </if>
+    </delete>
+
+</mapper>

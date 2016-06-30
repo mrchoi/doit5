@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.user.GroupDao">
+    <sql id="GroupColumn">
+        group_name,
+        allow_default,
+        authority,
+        description,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="GroupEntity" keyProperty="group_srl" keyColumn="group_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_group (
+            <include refid="GroupColumn" />
+        ) VALUES (
+            #{group_name},
+            #{allow_default},
+            #{authority},
+            #{description, jdbcType=VARCHAR},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_group
+        <where>
+            <if test="allow_default > 0">
+                allow_default = #{allow_default}
+            </if>
+            <if test="authority != null">
+                AND authority = #{authority}
+            </if>
+            <if test="max_group_srl > 0">
+                AND group_srl &lt; #{max_group_srl}
+            </if>
+        </where>
+        ORDER BY group_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.GroupEntity">
+        SELECT
+            group_srl,
+            <include refid="GroupColumn" />
+        FROM tbl_group
+        <where>
+            <if test="_parameter.containsKey('group_srl') and group_srl > 0">
+                group_srl = #{group_srl}
+            </if>
+            <if test="_parameter.containsKey('group_srls') and group_srls != null and _parameter.get('group_srls').size > 0">
+                AND group_srl IN
+                <foreach item="item" index="index" collection="group_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('allow_default') and allow_default > 0">
+                AND allow_default = #{allow_default}
+            </if>
+            <if test="_parameter.containsKey('authority') and authority != null">
+                AND authority = #{authority}
+            </if>
+            <if test="_parameter.containsKey('max_group_srl') and max_group_srl > 0">
+                AND group_srl &lt; #{max_group_srl}
+            </if>
+        </where>
+        ORDER BY group_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_group_srl > 0">
+            UPDATE tbl_group
+            <set>
+                <if test="groupEntity.group_name != null">group_name = #{groupEntity.group_name},</if>
+                <if test="groupEntity.allow_default > 0">allow_default = #{groupEntity.allow_default},</if>
+                <if test="groupEntity.authority != null">authority = #{groupEntity.authority},</if>
+                <if test="groupEntity.description != null">description = #{groupEntity.description},</if>
+                <if test="groupEntity.c_date > 0">c_date = #{groupEntity.c_date},</if>
+                <if test="groupEntity.u_date > 0">u_date = #{groupEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_group_srl != null">
+                    group_srl = #{target_group_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="int">
+        <if test="value > 0">
+            DELETE FROM tbl_group
+            WHERE group_srl = #{value}
+        </if>
+    </delete>
+
+</mapper>

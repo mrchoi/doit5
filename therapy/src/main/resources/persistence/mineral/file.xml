@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.mineral.FileDao">
+    <sql id="FileColumn">
+        orig_name,
+        file_size,
+        file_path,
+        file_url,
+        width,
+        height,
+        thumb_path,
+        thumb_url,
+        thumb_width,
+        thumb_height,
+        ipaddress,
+        deleted,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="java.util.Map" keyProperty="fileEntity.file_srl" keyColumn="file_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_${table_name} (
+            <include refid="FileColumn" />
+        ) VALUES (
+            #{fileEntity.orig_name, jdbcType=VARCHAR},
+            #{fileEntity.file_size},
+            #{fileEntity.file_path, jdbcType=VARCHAR},
+            #{fileEntity.file_url},
+            #{fileEntity.width},
+            #{fileEntity.height},
+            #{fileEntity.thumb_path, jdbcType=VARCHAR},
+            #{fileEntity.thumb_url, jdbcType=VARCHAR},
+            #{fileEntity.thumb_width},
+            #{fileEntity.thumb_height},
+            #{fileEntity.ipaddress, jdbcType=VARCHAR},
+            #{fileEntity.deleted},
+            #{fileEntity.c_date},
+            #{fileEntity.u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT
+            COUNT(1) as cnt
+        FROM
+            tbl_${table_name}
+        <where>
+            <if test="file_srls != null and _parameter.get('file_srls').size > 0">
+                file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="_parameter.containsKey('orig_name') and orig_name != null">
+                AND orig_name LIKE CONCAT('', #{orig_name}, '%')
+            </if>
+            <if test="max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        ORDER BY file_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.FileEntity">
+        SELECT
+            file_srl,
+            <include refid="FileColumn" />
+        FROM tbl_${table_name}
+        <where>
+            <if test="_parameter.containsKey('file_srl') and file_srl > 0">
+                file_srl = #{file_srl}
+            </if>
+            <if test="_parameter.containsKey('file_srls') and file_srls != null and _parameter.get('file_srls').size > 0">
+                AND file_srl IN
+                <foreach item="item" index="index" collection="file_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('orig_name') and orig_name != null">
+                AND orig_name LIKE CONCAT('', #{orig_name}, '%')
+            </if>
+            <if test="deleted > 0">
+                AND deleted = #{deleted}
+            </if>
+            <if test="_parameter.containsKey('max_file_srl') and max_file_srl > 0">
+                AND file_srl &lt; #{max_file_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY file_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_file_srl > 0">
+            UPDATE tbl_${table_name}
+            <set>
+                <if test="fileEntity.orig_name != null">orig_name = #{fileEntity.orig_name},</if>
+                <if test="fileEntity.file_size >= 0">file_size = #{fileEntity.file_size},</if>
+                <if test="fileEntity.file_path != null">file_path = #{fileEntity.file_path},</if>
+                <if test="fileEntity.file_url != null">file_url = #{fileEntity.file_url},</if>
+                <if test="fileEntity.width >= 0">width = #{fileEntity.width},</if>
+                <if test="fileEntity.height >= 0">height = #{fileEntity.height},</if>
+                <if test="fileEntity.thumb_path != null">thumb_path = #{fileEntity.thumb_path},</if>
+                <if test="fileEntity.thumb_url != null">thumb_url = #{fileEntity.thumb_url},</if>
+                <if test="fileEntity.thumb_width >= 0">thumb_width = #{fileEntity.thumb_width},</if>
+                <if test="fileEntity.thumb_height >= 0">thumb_height = #{fileEntity.thumb_height},</if>
+                <if test="fileEntity.ipaddress != null">ipaddress = #{fileEntity.ipaddress},</if>
+                <if test="fileEntity.deleted > 0">deleted = #{fileEntity.deleted},</if>
+                <if test="fileEntity.c_date > 0">c_date = #{fileEntity.c_date},</if>
+                <if test="fileEntity.u_date > 0">u_date = #{fileEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_file_srl > 0">
+                    file_srl = #{target_file_srl}
+                </if>
+                <if test="_parameter.containsKey('target_file_srls') and target_file_srls != null and _parameter.get('target_file_srls').size > 0">
+                    AND file_srl IN
+                    <foreach item="item" index="index" collection="target_file_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="file_srl > 0">
+            DELETE FROM tbl_${table_name}
+            WHERE file_srl = #{file_srl}
+        </if>
+    </delete>
+
+</mapper>

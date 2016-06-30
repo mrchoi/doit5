@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.user.MemberExtraDao">
+    <sql id="MemberExtraColumn">
+        member_srl,
+        social_type,
+        social_id,
+        login_count,
+        serial_login_count,
+        allow_temperature,
+        allow_distance,
+        allow_battery,
+        allow_call,
+        c_date,
+        u_date,
+        group_gubun,
+        birthday,
+        job,
+        marriage,
+        children,
+        religion,
+        religion_name,
+        disability,
+        disability_type,
+        disability_rate,
+        gender,
+        certificate,
+        kakao_id,
+        self_introduction,
+        advisor_class,
+        user_group_srl,
+        academic_srl,
+        class_srl,
+        domain_srl
+    </sql>
+
+    <insert id="add" parameterType="MemberExtraEntity">
+        INSERT INTO tbl_member_extra (
+            <include refid="MemberExtraColumn" />
+        ) VALUES (
+            #{member_srl},
+            #{social_type},
+            #{social_id, jdbcType=VARCHAR},
+            #{login_count},
+            #{serial_login_count},
+            #{allow_temperature},
+            #{allow_distance},
+            #{allow_battery},
+            #{allow_call},
+            #{c_date},
+            #{u_date},
+            #{group_gubun},
+            #{birthday, jdbcType=VARCHAR},
+            #{job, jdbcType=VARCHAR},
+            #{marriage},
+            #{children, jdbcType=VARCHAR},
+            #{religion},
+            #{religion_name, jdbcType=VARCHAR},
+            #{disability},
+            #{disability_type, jdbcType=VARCHAR},
+            #{disability_rate, jdbcType=VARCHAR},
+            #{gender},
+            #{certificate, jdbcType=VARCHAR},
+            #{kakao_id, jdbcType=VARCHAR},
+            #{self_introduction, jdbcType=VARCHAR},
+            #{advisor_class},
+            #{user_group_srl},
+            #{academic_srl},
+            #{class_srl},
+            #{domain_srl}
+        )
+    </insert>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberExtraEntity">
+        SELECT
+            <include refid="MemberExtraColumn" />
+        FROM
+            tbl_member_extra
+        <where>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('social_type') and social_type > 0">
+                AND social_type = #{social_type}
+            </if>
+            <if test="_parameter.containsKey('social_id') and social_id != null">
+                AND social_id = #{social_id}
+            </if>
+        </where>
+        ORDER BY member_srl DESC
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_member_srl > 0">
+            UPDATE tbl_member_extra
+            <set>
+                <if test="memberExtraEntity.social_type > 0">social_type = #{memberExtraEntity.social_type},</if>
+                <if test="memberExtraEntity.social_id != null">social_id = #{memberExtraEntity.social_id},</if>
+                <if test="memberExtraEntity.login_count > 0">login_count = #{memberExtraEntity.login_count},</if>
+                <if test="memberExtraEntity.serial_login_count > 0">serial_login_count = #{memberExtraEntity.serial_login_count},</if>
+                <if test="memberExtraEntity.allow_temperature > 0">allow_temperature = #{memberExtraEntity.allow_temperature},</if>
+                <if test="memberExtraEntity.allow_distance > 0">allow_distance = #{memberExtraEntity.allow_distance},</if>
+                <if test="memberExtraEntity.allow_battery > 0">allow_battery = #{memberExtraEntity.allow_battery},</if>
+                <if test="memberExtraEntity.allow_call > 0">allow_call = #{memberExtraEntity.allow_call},</if>
+                <if test="memberExtraEntity.c_date > 0">c_date = #{memberExtraEntity.c_date},</if>
+                <if test="memberExtraEntity.u_date > 0">u_date = #{memberExtraEntity.u_date},</if>
+                <if test="memberExtraEntity.group_gubun > 0">group_gubun = #{memberExtraEntity.group_gubun},</if>
+                <if test="memberExtraEntity.birthday != null">birthday = #{memberExtraEntity.birthday},</if>
+                <if test="memberExtraEntity.job != null">job = #{memberExtraEntity.job},</if>
+                <if test="memberExtraEntity.marriage > 0">marriage = #{memberExtraEntity.marriage},</if>
+                <if test="memberExtraEntity.children != null">children = #{memberExtraEntity.children},</if>
+                <if test="memberExtraEntity.religion > 0">religion = #{memberExtraEntity.religion},</if>
+                <if test="memberExtraEntity.religion_name != null">religion_name = #{memberExtraEntity.religion_name},</if>
+                <if test="memberExtraEntity.disability > 0">disability = #{memberExtraEntity.disability},</if>
+                <if test="memberExtraEntity.disability_type != null">disability_type = #{memberExtraEntity.disability_type},</if>
+                <if test="memberExtraEntity.disability_rate != null">disability_rate = #{memberExtraEntity.disability_rate},</if>
+                <if test="memberExtraEntity.gender > 0">gender = #{memberExtraEntity.gender},</if>
+                <if test="memberExtraEntity.certificate != null">certificate = #{memberExtraEntity.certificate},</if>
+                <if test="memberExtraEntity.kakao_id != null">kakao_id = #{memberExtraEntity.kakao_id},</if>
+                <if test="memberExtraEntity.self_introduction != null">self_introduction = #{memberExtraEntity.self_introduction},</if>
+                <if test="memberExtraEntity.advisor_class > 0">advisor_class = #{memberExtraEntity.advisor_class},</if>
+                <if test="memberExtraEntity.user_group_srl >= 0">user_group_srl = #{memberExtraEntity.user_group_srl},</if>
+                <if test="memberExtraEntity.academic_srl > 0">academic_srl = #{memberExtraEntity.academic_srl},</if>
+                <if test="memberExtraEntity.class_srl > 0">class_srl = #{memberExtraEntity.class_srl},</if>
+                <if test="memberExtraEntity.domain_srl > 0">domain_srl = #{memberExtraEntity.domain_srl},</if>
+            </set>
+            WHERE member_srl = #{target_member_srl}
+        </if>
+    </update>
+
+    <update id="increase" parameterType="java.util.Map">
+        <if test="target_member_srl > 0">
+            UPDATE tbl_member_extra
+            <set>
+                <if test="increase_login_count == true">login_count = login_count + 1,</if>
+                <if test="increase_serial_login_count == true">serial_login_count = serial_login_count + 1,</if>
+                u_date = UNIX_TIMESTAMP()
+            </set>
+            WHERE member_srl = #{target_member_srl}
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="int">
+        <if test="value > 0">
+            DELETE FROM tbl_member_extra
+            WHERE member_srl = #{value}
+        </if>
+    </delete>
+
+</mapper>

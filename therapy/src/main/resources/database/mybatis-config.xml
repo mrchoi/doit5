@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--
+        [maxRequests] - 기본값: 512
+            동시에 SQL 문을 수행할 수 있는 Thread의 개수이다. 셋팅 값보다 많은 Thread는 다른 Thread가 수행을 완료할때까지 블록된다.
+            최소한 10개의 maxTransactions 이고 언제나 maxSession과 maxTransactions보다 크다.
+            최대치를 줄이면 성능향상이 되는 경우가 있다.
+            예) maxRequests="256"
+
+        [maxSessions] - 기본값: 128
+            이것은 주어진 시간동안 활성화될 수 있는 session의 갯수이다. session은 명시적으로 주어질 수도 있고 프로그램적으로 요청도리 수도 있고
+            Thread가 sqlMapClient 인스턴스를 사용할때마다 자동적으로 생성될 수도 있다. 이 값은 항상 maxTransaction 보다 같거나 커야 하고
+            maxRequests보다 작아야 한다. maxSession 값의 최대치를 줄이면 전체적인 메모리 사용량을 줄일 수 있다.
+            예) maxSession="64"
+
+        [maxTransactions] - 기본값: 32
+            이것은 한꺼번에 sqlMapClient.startTransaction()에 들어갈 수 있는 Thread의 최대 갯수이다.
+            셋팅값보다 많은 Thread는 다른 Thread가 나올때까지 블록된다. 이 값은 언제나 maxSessions보다 작거나 같아야 하고
+            maxRequests보다 작아야 한다. maxTransaction의 최대치를 줄이면 성능향상이 되는 경우가 있다.
+            예) maxTransactions="16"
+
+        [cacheModelsEnabled] - 기본값: true
+            이 값은 sqlMapClient 를 위한 모든 캐쉬모델을 가능하게 하거나 가능하지 않게 한다. 디버깅시 도움이 된다.
+            예) cacheModelsEnabled="true"
+
+        [lazyLoadingEnabled] - 기본값: true
+            이 값은 sqlMapClient를 위한 lazy 로딩을 가능하게 하거나 가능하지 않게 한다. 디버깅시 도움이 된다.
+            예) lazyloadingEnabled="true"
+
+        [enhancementEnabled] - 기본값: false
+            이 값은 향상된 lazy 로딩처럼 최적화된 자바빈즈 속성 접근을 위해 런타임시 바이트코드 향상을 가능하게 한다.
+            예) enhancementEnabled="true"
+
+        [useStatementNamespaces] - 기본값: false
+            이 값을 true로 셋팅하면 sqlmap 이름과 statement 이름으로 구성된 전체 이름으로 매핑된 statement를 참조해야 한다.
+            예) useStatementNamespaces="false"
+
+        -->
+
+        <!--<setting name="lazyLoadingEnabled" value="false" />-->
+        <setting name="defaultExecutorType" value="REUSE" />
+        <!--<setting name="useGeneratedKeys" value="true" />-->
+        <!--<setting name="defaultExecutorType" value="BATCH" />-->
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.ckstack.ckpush.domain.user.MemberEntity" alias="MemberEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.user.MemberExtraEntity" alias="MemberExtraEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.user.MemberDeviceEntity" alias="MemberDeviceEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.user.GroupEntity" alias="GroupEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.user.GroupMemberEntity" alias="GroupMemberEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.user.MemberAccessTokenEntity" alias="MemberAccessTokenEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.accessory.DeviceEntity" alias="DeviceEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.accessory.ServiceHistoryEntity" alias="ServiceHistoryEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.accessory.SequenceEntity" alias="SequenceEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.accessory.DeviceAccessTokenEntity" alias="DeviceAccessTokenEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.app.AppEntity" alias="AppEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.app.AppDeviceEntity" alias="AppDeviceEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.app.AppGroupEntity" alias="AppGroupEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.app.AppGroupMemberEntity" alias="AppGroupMemberEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.app.AppMemberEntity" alias="AppMemberEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.push.PushMessageEntity" alias="PushMessageEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.FileEntity" alias="FileEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.FileRepositoryEntity" alias="FileRepositoryEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.DocumentAttachEntity" alias="DocumentAttachEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.MemberPicEntity" alias="MemberPicEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.PushMessagePicEntity" alias="PushMessagePicEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.mineral.DocumentFileEntity" alias="DocumentFileEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.board.TemplateEntity" alias="TemplateEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.AppTemplateEntity" alias="AppTemplateEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentBoardEntity" alias="DocumentBoardEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentCategoryEntity" alias="DocumentCategoryEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentEntity" alias="DocumentEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentCommentEntity" alias="DocumentCommentEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentLinkEntity" alias="DocumentLinkEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.TagEntity" alias="TagEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.board.DocumentTagEntity" alias="DocumentTagEntity" />
+
+
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.PretestingEntity" alias="PretestingEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.ProductEntity" alias="ProductEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.ApplicationEntity" alias="ApplicationEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.AppointmentEntity" alias="AppointmentEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.PaymentEntity" alias="PaymentEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.AddressEntity" alias="AddressEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.DiaryEntity" alias="DiaryEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.PushEntity" alias="PushEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.push.NotificationEntity" alias="NotificationEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.PlymindDocumentEntity" alias="PlymindDocumentEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.HolidayEntity" alias="HolidayEntity" />
+        <typeAlias type="com.ckstack.ckpush.domain.plymind.AdvicedomainEntity" alias="AdvicedomainEntity" />
+
+        <typeAlias type="com.ckstack.ckpush.domain.user.ZipCodeEntity" alias="ZipCodeEntity" />
+
+    </typeAliases>
+
+</configuration>

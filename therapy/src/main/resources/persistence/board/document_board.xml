@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.DocumentBoardDao">
+    <sql id="DocumentBoardColumn">
+        app_srl,
+        board_name,
+        board_description,
+        enabled,
+        open_type,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentBoardEntity" keyProperty="board_srl" keyColumn="board_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_document_board (
+            <include refid="DocumentBoardColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{board_name},
+            #{board_description, jdbcType=VARCHAR},
+            #{enabled},
+            #{open_type},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_board
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="board_name != null">
+                AND board_name LIKE CONCAT('', #{board_name}, '%')
+            </if>
+            <if test="enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="open_type > 0">
+                AND open_type = #{open_type}
+            </if>
+        </where>
+        ORDER BY board_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentBoardEntity">
+        SELECT
+            board_srl,
+            <include refid="DocumentBoardColumn" />
+        FROM tbl_document_board
+        <where>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_name') and board_name != null">
+                AND board_name LIKE CONCAT('', #{board_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('open_type') and open_type > 0">
+                AND open_type = #{open_type}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY board_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_board_srl > 0">
+            UPDATE tbl_document_board
+            <set>
+                <if test="documentBoardEntity.app_srl > 0">app_srl = #{documentBoardEntity.app_srl},</if>
+                <if test="documentBoardEntity.board_name != null">board_name = #{documentBoardEntity.board_name},</if>
+                <if test="documentBoardEntity.board_description != null">board_description = #{documentBoardEntity.board_description},</if>
+                <if test="documentBoardEntity.enabled > 0">enabled = #{documentBoardEntity.enabled},</if>
+                <if test="documentBoardEntity.open_type > 0">open_type = #{documentBoardEntity.open_type},</if>
+                <if test="documentBoardEntity.c_date > 0">c_date = #{documentBoardEntity.c_date},</if>
+                <if test="documentBoardEntity.u_date > 0">u_date = #{documentBoardEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_board_srl > 0">
+                    board_srl = #{target_board_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('board_srl') and board_srl > 0) or (_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0)">
+            DELETE FROM tbl_document_board
+            <where>
+                <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                    board_srl = #{board_srl}
+                </if>
+                <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                    AND board_srl IN
+                    <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>

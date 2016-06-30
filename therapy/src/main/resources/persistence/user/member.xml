@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.user.MemberDao">
+    <sql id="MemberColumn">
+        user_id,
+        email_address,
+        user_password,
+        user_name,
+        nick_name,
+        mobile_phone_number,
+        allow_mailing,
+        allow_message,
+        description,
+        last_login_date,
+        change_password_date,
+        enabled,
+        email_confirm,
+        sign_out,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="MemberEntity" keyProperty="member_srl" keyColumn="member_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_member (
+        <include refid="MemberColumn" />
+        ) VALUES (
+        #{user_id},
+        #{email_address, jdbcType=VARCHAR},
+        #{user_password},
+        #{user_name},
+        #{nick_name},
+        #{mobile_phone_number},
+        #{allow_mailing},
+        #{allow_message},
+        #{description, jdbcType=VARCHAR},
+        #{last_login_date},
+        #{change_password_date},
+        #{enabled},
+        #{email_confirm},
+        #{sign_out},
+        #{c_date},
+        #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_member
+        <where>
+            <if test="user_name != null">
+                user_name = #{user_name}
+            </if>
+            <if test="nick_name != null">
+                AND nick_name = #{nick_name}
+            </if>
+            <if test="mobile_phone_number != null">
+                AND mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="max_member_srl > 0">
+                AND member_srl &lt; #{max_member_srl}
+            </if>
+        </where>
+        ORDER BY member_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberEntity">
+        SELECT
+        member_srl,
+        <include refid="MemberColumn" />
+        FROM tbl_member
+        <where>
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                AND user_id = #{user_id}
+            </if>
+            <if test="_parameter.containsKey('user_ids') and user_ids != null and _parameter.get('user_ids').size > 0">
+                AND user_id IN
+                <foreach item="item" index="index" collection="user_ids" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('email_address') and email_address != null">
+                AND email_address = #{email_address}
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                AND user_name = #{user_name}
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND nick_name = #{nick_name}
+            </if>
+            <if test="_parameter.containsKey('mobile_phone_number') and mobile_phone_number != null">
+                AND mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="_parameter.containsKey('max_member_srl') and max_member_srl > 0">
+                AND member_srl &lt; #{max_member_srl}
+            </if>
+        </where>
+        ORDER BY member_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countFullInfo" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_member A
+        LEFT JOIN tbl_member_extra B
+        ON A.member_srl = B.member_srl
+        <where>
+            B.member_srl IS NOT NULL
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_id LIKE CONCAT('', #{user_id}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_id = #{user_id}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="user_name != null">
+                AND A.user_name = #{user_name}
+            </if>
+            <if test="nick_name != null">
+                AND A.nick_name = #{nick_name}
+            </if>
+            <if test="mobile_phone_number != null">
+                AND A.mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="max_member_srl > 0">
+                AND A.member_srl &lt; #{max_member_srl}
+            </if>
+            <if test="social_type > 0">
+                AND B.social_type = #{social_type}
+            </if>
+            <if test="social_id != null">
+                AND B.social_id = #{social_id}
+            </if>
+        </where>
+        ORDER BY A.member_srl DESC
+    </select>
+
+    <select id="getFullInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberFullInfoEntity">
+        SELECT
+        A.member_srl as member_srl,
+        A.user_id as user_id,
+        A.email_address as email_address,
+        A.user_password as user_password,
+        A.user_name as user_name,
+        A.nick_name as nick_name,
+        A.mobile_phone_number as mobile_phone_number,
+        A.allow_mailing as allow_mailing,
+        A.allow_message as allow_message,
+        A.description as description,
+        A.last_login_date as last_login_date,
+        A.change_password_date as change_password_date,
+        A.enabled as enabled,
+        A.email_confirm as email_confirm,
+        A.sign_out as sign_out,
+        A.c_date as c_date,
+        A.u_date as u_date,
+        B.social_type as social_type,
+        B.social_id as social_id,
+        B.login_count as login_count,
+        B.serial_login_count as serial_login_count,
+        B.allow_temperature as allow_temperature,
+        B.allow_distance as allow_distance,
+        B.allow_battery as allow_battery,
+        B.allow_call as allow_call,
+        B.c_date as extra_c_date,
+        B.u_date as extra_u_date,
+        B.group_gubun as group_gubun,
+        B.birthday as birthday,
+        B.job as job,
+        B.marriage as marriage,
+        B.children as children,
+        B.religion as religion,
+        B.religion_name as religion_name,
+        B.disability as disability,
+        B.disability_type as disability_type,
+        B.disability_rate as disability_rate,
+        B.gender as gender,
+        B.certificate as certificate,
+        B.kakao_id as kakao_id,
+        B.self_introduction as self_introduction,
+        B.advisor_class as advisor_class,
+        B.user_group_srl as user_group_srl,
+        B.academic_srl as academic_srl,
+        B.class_srl as class_srl,
+        B.domain_srl as domain_srl
+        FROM tbl_member A
+        LEFT JOIN tbl_member_extra B
+        ON A.member_srl = B.member_srl
+        <where>
+            B.member_srl IS NOT NULL
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND A.member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_id LIKE CONCAT('', #{user_id}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_id = #{user_id}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_name LIKE CONCAT('', #{user_name}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_name = #{user_name}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND A.nick_name LIKE CONCAT('%', #{nick_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('mobile_phone_number') and mobile_phone_number != null">
+                AND A.mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="_parameter.containsKey('max_member_srl') and max_member_srl > 0">
+                AND A.member_srl &lt; #{max_member_srl}
+            </if>
+            <if test="_parameter.containsKey('social_type') and social_type > 0">
+                AND B.social_type = #{social_type}
+            </if>
+            <if test="_parameter.containsKey('social_id') and social_id != null">
+                AND B.social_id = #{social_id}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    <choose>
+                        <when test="key == 'member_srl' or key == 'user_id' or key == 'user_name' or key == 'nick_name' or key == 'mobile_phone_number'">
+                            A.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.member_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_member_srl > 0 or target_user_id != null">
+            UPDATE tbl_member
+            <set>
+                <if test="memberEntity.email_address != null">email_address = #{memberEntity.email_address},</if>
+                <if test="memberEntity.user_password != null">user_password = #{memberEntity.user_password},</if>
+                <if test="memberEntity.user_name != null">user_name = #{memberEntity.user_name},</if>
+                <if test="memberEntity.nick_name != null">nick_name = #{memberEntity.nick_name},</if>
+                <if test="memberEntity.mobile_phone_number != null">mobile_phone_number = #{memberEntity.mobile_phone_number},</if>
+                <if test="memberEntity.allow_mailing > 0">allow_mailing = #{memberEntity.allow_mailing},</if>
+                <if test="memberEntity.allow_message > 0">allow_message = #{memberEntity.allow_message},</if>
+                <if test="memberEntity.description != null">description = #{memberEntity.description},</if>
+                <if test="memberEntity.last_login_date > 0">last_login_date = #{memberEntity.last_login_date},</if>
+                <if test="memberEntity.change_password_date > 0">change_password_date = #{memberEntity.change_password_date},</if>
+                <if test="memberEntity.enabled > 0">enabled = #{memberEntity.enabled},</if>
+                <if test="memberEntity.email_confirm > 0">email_confirm = #{memberEntity.email_confirm},</if>
+                <if test="memberEntity.sign_out > 0">sign_out = #{memberEntity.sign_out},</if>
+                <if test="memberEntity.c_date > 0">c_date = #{memberEntity.c_date},</if>
+                <if test="memberEntity.u_date > 0">u_date = #{memberEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_member_srl > 0">
+                    member_srl = #{target_member_srl}
+                </if>
+                <if test="target_user_id != null">
+                    AND user_id = #{target_user_id}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="member_srl > 0 or user_id != null or (member_srls != null and _parameter.get('member_srls').size > 0)">
+            DELETE FROM tbl_member
+            <where>
+                <if test="member_srl > 0">
+                    member_srl = #{member_srl}
+                </if>
+                <if test="member_srls != null and _parameter.get('member_srls').size > 0">
+                    AND member_srl IN
+                    <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="user_id != null">
+                    AND user_id = #{user_id}
+                </if>
+            </where>
+        </if>
+    </delete>
+
+    <select id="countMemberByGroup" parameterType="java.util.Map"  resultType="long">
+        SELECT COUNT(A.member_srl) as cnt
+        FROM tbl_member A
+        LEFT JOIN tbl_group_member B
+        ON A.member_srl = B.member_srl, tbl_member_extra C
+        <where>
+            A.member_srl = C.member_srl
+            <if test="_parameter.containsKey('group_srl') and group_srl > 0">
+                AND B.group_srl = #{group_srl}
+            </if>
+            <if test="_parameter.containsKey('group_srls') and group_srls != null and _parameter.get('group_srls').size > 0">
+                AND B.group_srl IN
+                <foreach item="item" index="index" collection="group_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null and user_id != ''">
+                AND A.user_id LIKE CONCAT('%', CONCAT('', #{user_id}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null and user_id != ''">
+                AND A.user_name LIKE CONCAT('%', CONCAT('', #{user_name}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null and user_id != ''">
+                AND A.nick_name LIKE CONCAT('%', CONCAT('', #{nick_name}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="_parameter.containsKey('class_srl') and class_srl > 0">
+                AND C.class_srl = #{class_srl}
+            </if>
+        </where>
+    </select>
+
+    <select id="getMemberListByGroup" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberFullInfoEntity">
+        SELECT
+        A.member_srl as member_srl,
+        A.user_id as user_id,
+        A.email_address as email_address,
+        A.user_password as user_password,
+        A.user_name as user_name,
+        A.nick_name as nick_name,
+        A.mobile_phone_number as mobile_phone_number,
+        A.allow_mailing as allow_mailing,
+        A.allow_message as allow_message,
+        A.description as description,
+        A.last_login_date as last_login_date,
+        A.change_password_date as change_password_date,
+        A.enabled as enabled,
+        A.email_confirm as email_confirm,
+        A.sign_out as sign_out,
+        A.c_date as c_date,
+        A.u_date as u_date,
+        C.class_srl as class_srl,
+        C.self_introduction as self_introduction
+        FROM tbl_member A
+        LEFT JOIN tbl_group_member B
+        ON A.member_srl = B.member_srl, tbl_member_extra C
+        <where>
+            A.member_srl = C.member_srl
+            <if test="_parameter.containsKey('group_srl') and group_srl > 0">
+                AND B.group_srl = #{group_srl}
+            </if>
+            <if test="_parameter.containsKey('group_srls') and group_srls != null and _parameter.get('group_srls').size > 0">
+                AND B.group_srl IN
+                <foreach item="item" index="index" collection="group_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null and user_id != ''">
+                AND A.user_id LIKE CONCAT('%', CONCAT('', #{user_id}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null and user_name != ''">
+                AND A.user_name LIKE CONCAT('%', CONCAT('', #{user_name}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null and nick_name != ''">
+                AND A.nick_name LIKE CONCAT('%', CONCAT('', #{nick_name}, '%'), '')
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="_parameter.containsKey('class_srl') and class_srl > 0">
+                AND C.class_srl = #{class_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    <choose>
+                        <when test="key == 'member_srl' or key == 'user_id' or key == 'user_name' or key == 'nick_name' or key == 'mobile_phone_number'">
+                            A.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.member_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countGroupFullInfo" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_member A
+        LEFT JOIN tbl_group_member B
+        ON A.member_srl = B.member_srl
+        <where>
+            B.member_srl IS NOT NULL
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_id LIKE CONCAT('', #{user_id}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_id = #{user_id}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="user_name != null">
+                AND A.user_name = #{user_name}
+            </if>
+            <if test="nick_name != null">
+                AND A.nick_name = #{nick_name}
+            </if>
+            <if test="mobile_phone_number != null">
+                AND A.mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="max_member_srl > 0">
+                AND A.member_srl &lt; #{max_member_srl}
+            </if>
+            <if test="group_srl > 0">
+                AND B.group_srl = #{group_srl}
+            </if>
+        </where>
+        ORDER BY A.member_srl DESC
+    </select>
+
+    <select id="getGroupFullInfo" parameterType="java.util.Map" resultMap="com.ckpush.result.MemberFullInfoEntity">
+        SELECT
+        A.member_srl as member_srl,
+        A.user_id as user_id,
+        A.email_address as email_address,
+        A.user_password as user_password,
+        A.user_name as user_name,
+        A.nick_name as nick_name,
+        A.mobile_phone_number as mobile_phone_number,
+        A.allow_mailing as allow_mailing,
+        A.allow_message as allow_message,
+        A.description as description,
+        A.last_login_date as last_login_date,
+        A.change_password_date as change_password_date,
+        A.enabled as enabled,
+        A.email_confirm as email_confirm,
+        A.sign_out as sign_out,
+        A.c_date as c_date,
+        A.u_date as u_date
+        FROM tbl_member A
+        LEFT JOIN tbl_group_member B
+        ON A.member_srl = B.member_srl
+        <where>
+            B.member_srl IS NOT NULL
+            <if test="_parameter.containsKey('member_srl') and member_srl > 0">
+                AND A.member_srl = #{member_srl}
+            </if>
+            <if test="_parameter.containsKey('member_srls') and member_srls != null and _parameter.get('member_srls').size > 0">
+                AND A.member_srl IN
+                <foreach item="item" index="index" collection="member_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('user_id') and user_id != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_id LIKE CONCAT('', #{user_id}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_id = #{user_id}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="_parameter.containsKey('user_name') and user_name != null">
+                <choose>
+                    <when test="_parameter.containsKey('is_like') and is_like == true">
+                        AND A.user_name LIKE CONCAT('', #{user_name}, '%')
+                    </when>
+                    <otherwise>
+                        AND A.user_name = #{user_name}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="_parameter.containsKey('nick_name') and nick_name != null">
+                AND A.nick_name LIKE CONCAT('%', #{nick_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('mobile_phone_number') and mobile_phone_number != null">
+                AND A.mobile_phone_number = #{mobile_phone_number}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND A.enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('sign_out') and sign_out > 0">
+                AND A.sign_out = #{sign_out}
+            </if>
+            <if test="_parameter.containsKey('max_member_srl') and max_member_srl > 0">
+                AND A.member_srl &lt; #{max_member_srl}
+            </if>
+            <if test="_parameter.containsKey('group_srl') and group_srl > 0">
+                AND B.group_srl = #{group_srl}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    <choose>
+                        <when test="key == 'member_srl' or key == 'user_id' or key == 'user_name' or key == 'nick_name' or key == 'mobile_phone_number'">
+                            A.${key} ${item}
+                        </when>
+                        <otherwise>
+                            B.${key} ${item}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY A.member_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ras event 용도의 redis 연결 -->
+    <bean id="jedisGcmApnsConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:database="${redis.ckpush.push_db}">
+        <property name="usePool" value="true" />
+        <property name="hostName" value="${redis.ckpush.host}" />
+        <property name="port" value="${redis.ckpush.port}" />
+    </bean>
+
+    <bean id="redisGcmApnsTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisGcmApnsConnectionFactory" />
+    </bean>
+
+    <!-- cache 용도의 redis 연결 -->
+    <bean id="jedisCacheConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:database="${redis.ckpush.cache_db}">
+        <property name="usePool" value="true" />
+        <property name="hostName" value="${redis.ckpush.host}" />
+        <property name="port" value="${redis.ckpush.port}" />
+    </bean>
+
+    <bean id="redisCacheTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisCacheConnectionFactory" />
+    </bean>
+
+</beans>

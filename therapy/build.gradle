@@ -1,0 +1,186 @@
+// binary 떨구는 방법
+// ./gradlew clean war
+// 위의 명령을 실행하면 backoffice/build/libs 하단에 war 파일을 생성 한다.
+
+group 'doit5'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+def profile = project.hasProperty('profile') ? project.getProperty('profile') : 'local'
+
+sourceSets {
+    main {
+        resources {
+            if( "$profile" != "local" ){
+                srcDir "src/main/resources-${profile}"
+            }
+
+        }
+    }
+}
+
+ext {
+    springVersion			= '4.1.5.RELEASE'
+    springSecurityVersion	= '3.2.5.RELEASE'
+    springDataRedisVersion	= '1.4.0.RELEASE'
+    //springWebFlowVersion    = '2.4.1.RELEASE'
+    jstlVersion				= '1.2'
+    freeMarkerVersion       = '2.3.22'
+    servletApiVersion2		= '2.5'
+    servletApiVersion3		= '3.1.0'
+    jspApiVersion			= '2.2'
+    slf4jVersion			= '1.7.7'
+    logbackVersion			= '1.1.2'
+    hibernateValidateVersion= '5.1.2.Final'
+    mysqlConnectVersion		= '5.1.33'
+    mybatisVersion			= '3.2.8'
+    mybatisSpringVersion	= '1.2.2'
+    commonDbcpVersion		= '2.0.1'
+    jedisVersion			= '2.6.0'
+    jsonLibVersion			= '2.4'
+    jacksonVersion			= '2.4.3'
+    jacksonMapperAslVersion	= '1.9.13'
+    httpClientVersion		= '4.3.6'
+    validationApiVersion	= '1.1.0.Final'
+    hibernateValidatVersion	= '5.1.2.Final'
+    hibernateVersion		= '4.3.6.Final'
+    commonCompressVersion	= '1.9'
+    commonFileUploadVersion	= '1.3.1'
+    jodaTimeVersion			= '2.5'
+    apacheTikaVersion       = '1.8'
+    //tilesVersion			= '3.0.5'
+    //ckeditorJavaVersion		= '3.5.3'
+    //zxingQRCodeVersion		= '3.1.0'
+    junitVersion			= '4.11'
+    mockitoVersion          = '1.10.19'
+    elApi                   = '3.0.0'
+    lombokVersion           = '1.16.2'
+    javapnsVersion          = '2.2.1'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    //maven {
+    //    // spring-test-mvc 를 위해 repository 추가.
+    //    // 정식으로 배포 되지 않아서 임의 추가 해야 함.
+    //    url "http://repo.springsource.org/libs-snapshot"
+    //}
+}
+
+dependencies {
+    // Spring MVC
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+
+    // Other Web dependencies
+    compile group: 'javax.servlet', name: 'jstl', version: jstlVersion
+    compile group: 'org.freemarker', name: 'freemarker', version: freeMarkerVersion
+    // include in compile only, exclude in the war
+    //providedCompile group: 'javax.servlet', name: 'servlet-api', version: servletApiVersion2
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: servletApiVersion3
+    providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: jspApiVersion
+
+    // Spring Web Flow
+    //compile group: 'org.springframework.webflow', name: 'spring-webflow', version: springWebFlowVersion
+
+    // XML
+    //compile group: 'org.springframework', name: 'spring-oxm', version: springVersion
+
+    // Spring Security
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
+
+    // Database
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-tx', version: springVersion
+    compile group: 'mysql', name: 'mysql-connector-java', version: mysqlConnectVersion
+    compile group: 'org.mybatis', name: 'mybatis', version: mybatisVersion
+    compile group: 'org.mybatis', name: 'mybatis-spring', version: mybatisSpringVersion
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: commonDbcpVersion
+
+    // Redis
+    compile group: 'org.springframework.data', name: 'spring-data-redis', version: springDataRedisVersion
+    compile group: 'redis.clients', name: 'jedis', version: jedisVersion
+
+    // JSON
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: jsonLibVersion, classifier: 'jdk15'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: jacksonMapperAslVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+
+    // HttpClient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpClientVersion
+
+    // Validate
+    compile group: 'javax.validation', name: 'validation-api', version: validationApiVersion
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: hibernateValidatVersion
+    //compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: hibernateVersion
+
+    // Logging with SLF4J & LogBack
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+
+    // Zip compress
+    compile group: 'org.apache.commons', name: 'commons-compress', version: commonCompressVersion
+
+    // File Upload
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: commonFileUploadVersion
+
+    // Joda Time
+    compile group: 'joda-time', name: 'joda-time', version: jodaTimeVersion
+
+    // Lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    // Apache Tika
+    compile group: 'org.apache.tika', name: 'tika-core', version: apacheTikaVersion
+
+    // javax mail
+    //compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.5'
+
+    // com sun mail
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.5'
+
+    // Tiles3
+    //compile group: 'org.apache.tiles', name: 'tiles-extras', version: tilesVersion
+
+    // CKEditor
+    //compile group: 'com.ckeditor', name: 'ckeditor-java-core', version: ckeditorJavaVersion
+
+    // Zxing QRCode
+    //compile group: 'com.google.zxing', name: 'javase', version: zxingQRCodeVersion
+
+    // Push Message
+    compile group: 'com.github.fernandospr', name: 'javapns-jdk16', version: javapnsVersion
+
+    // Test Artifacts
+    testCompile group: 'org.springframework', name: 'spring-test', version: springVersion
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+    testCompile group: 'org.mockito', name: 'mockito-all', version: mockitoVersion
+    testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: servletApiVersion3
+    testCompile group: 'javax.el', name: 'javax.el-api', version: elApi
+}
+
+// remove commons-logging depedencies, because it use logback, slf4j
+//[configurations.runtime, configurations.default]*.exclude(module: 'commons-logging')
+
+// source encoding
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
+}

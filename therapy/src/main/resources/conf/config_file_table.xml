@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+    <comment>파일 테이블 이름 정의</comment>
+
+    <!-- 파일 테이블명 -->
+    <!-- 파일 테이블명: 프로필 이미지 테이블 -->
+    <entry key="tbl_name_profile_file">profile_pic</entry>
+    <!-- 파일 테이블명: Push 메시지에서 사용되는 이미지 테이블 -->
+    <entry key="tbl_name_push_file">push_pic</entry>
+
+</properties>

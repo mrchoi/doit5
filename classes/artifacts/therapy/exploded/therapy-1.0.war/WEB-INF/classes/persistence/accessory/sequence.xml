@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.accessory.SequenceDao">
+    <sql id="SequenceColumn">
+        seq_type,
+        seq_no
+    </sql>
+
+    <insert id="add" parameterType="ServiceHistoryEntity">
+        INSERT INTO tbl_sequence (
+            <include refid="SequenceColumn" />
+        ) VALUES (
+            #{seq_type},
+            #{seq_no}
+        )
+    </insert>
+
+    <select id="get" parameterType="int" resultMap="com.ckpush.result.SequenceEntity">
+        SELECT <include refid="SequenceColumn" />
+        FROM tbl_sequence
+        WHERE seq_type = #{value, jdbcType=NUMERIC}
+        ORDER BY seq_type DESC
+    </select>
+
+    <update id="modify" parameterType="int">
+        UPDATE tbl_sequence
+        SET seq_no = LAST_INSERT_ID(seq_no + 1)
+        WHERE seq_type = #{value, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM tbl_sequence
+        WHERE seq_type = #{value, jdbcType=NUMERIC}
+    </delete>
+
+</mapper>

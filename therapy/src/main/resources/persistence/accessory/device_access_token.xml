@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.accessory.DeviceAccessTokenDao">
+    <sql id="DeviceAccessTokenColumn">
+        device_srl,
+        app_srl,
+        access_token,
+        token_expire,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="DeviceAccessTokenEntity" keyProperty="token_srl" keyColumn="token_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_device_access_token (
+            <include refid="DeviceAccessTokenColumn" />
+        ) VALUES (
+            #{device_srl},
+            #{app_srl},
+            #{access_token},
+            #{token_expire},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_device_access_token
+        <where>
+            <if test="device_srl > 0">
+                device_srl = #{device_srl}
+            </if>
+            <if test="app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="access_token != null">
+                AND access_token = #{access_token}
+            </if>
+            <if test="token_expire > 0">
+                AND token_expire &gt;= #{token_expire}
+            </if>
+        </where>
+        ORDER BY token_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DeviceAccessTokenEntity">
+        SELECT
+            token_srl,
+            <include refid="DeviceAccessTokenColumn" />
+        FROM tbl_device_access_token
+        <where>
+            <if test="_parameter.containsKey('token_srl') and token_srl > 0">
+                token_srl = #{token_srl}
+            </if>
+            <if test="_parameter.containsKey('device_srl') and device_srl > 0">
+                AND device_srl = #{device_srl}
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('token_srls') and token_srls != null and _parameter.get('token_srls').size > 0">
+                AND token_srl IN
+                <foreach item="item" index="index" collection="token_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('access_token') and access_token != null">
+                AND access_token = #{access_token}
+            </if>
+            <if test="_parameter.containsKey('token_expire') and token_expire > 0">
+                AND token_expire &gt;= #{token_expire}
+            </if>
+        </where>
+        ORDER BY token_srl DESC
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_token_srl > 0 or target_access_token != null or target_app_srl > 0">
+            UPDATE tbl_device_access_token
+            <set>
+                <if test="deviceAccessTokenEntity.device_srl > 0">device_srl = #{deviceAccessTokenEntity.device_srl},</if>
+                <if test="deviceAccessTokenEntity.access_token != null">access_token = #{deviceAccessTokenEntity.access_token},</if>
+                <if test="deviceAccessTokenEntity.token_expire > 0">token_expire = #{deviceAccessTokenEntity.token_expire},</if>
+                <if test="deviceAccessTokenEntity.c_date > 0">c_date = #{deviceAccessTokenEntity.c_date},</if>
+                <if test="deviceAccessTokenEntity.u_date > 0">u_date = #{deviceAccessTokenEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_token_srl > 0">
+                    token_srl = #{target_token_srl}
+                </if>
+                <if test="target_access_token != null">
+                    AND access_token = #{target_access_token}
+                </if>
+                <if test="target_app_srl > 0">
+                    AND target_app_srl = #{target_app_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('token_srl') and token_srl > 0) or (_parameter.containsKey('access_token') and access_token != null) or (_parameter.containsKey('app_srl') and app_srl > 0)">
+            DELETE FROM tbl_device_access_token
+            <where>
+                <if test="_parameter.containsKey('token_srl') and token_srl > 0">
+                    token_srl = #{token_srl}
+                </if>
+                <if test="_parameter.containsKey('access_token') and access_token != null">
+                    AND access_token = #{access_token}
+                </if>
+                <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                    app_srl = #{app_srl}
+                </if>
+            </where>
+        </if>
+    </delete>
+</mapper>

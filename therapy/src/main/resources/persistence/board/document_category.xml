@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckstack.ckpush.dao.board.DocumentCategoryDao">
+    <sql id="DocumentCategoryColumn">
+        app_srl,
+        board_srl,
+        category_name,
+        category_description,
+        category_type,
+        enabled,
+        open_type,
+        c_date,
+        u_date
+    </sql>
+
+    <insert id="add" parameterType="DocumentCategoryEntity" keyProperty="category_srl" keyColumn="category_srl" useGeneratedKeys="true">
+        INSERT INTO tbl_document_category (
+            <include refid="DocumentCategoryColumn" />
+        ) VALUES (
+            #{app_srl},
+            #{board_srl},
+            #{category_name},
+            #{category_description, jdbcType=VARCHAR},
+            #{category_type},
+            #{enabled},
+            #{open_type},
+            #{c_date},
+            #{u_date}
+        )
+    </insert>
+
+    <select id="count" parameterType="java.util.Map" resultType="long">
+        SELECT COUNT(1) as cnt
+        FROM tbl_document_category
+        <where>
+            <if test="app_srl > 0">
+                app_srl = #{app_srl}
+            </if>
+            <if test="board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="category_name != null">
+                AND category_name LIKE CONCAT('', #{category_name}, '%')
+            </if>
+            <if test="category_type > 0">
+                AND category_type = #{category_type}
+            </if>
+            <if test="enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="open_type > 0">
+                AND open_type = #{open_type}
+            </if>
+        </where>
+        ORDER BY category_srl DESC
+    </select>
+
+    <select id="get" parameterType="java.util.Map" resultMap="com.ckpush.result.DocumentCategoryEntity">
+        SELECT
+            category_srl,
+            <include refid="DocumentCategoryColumn" />
+        FROM tbl_document_category
+        <where>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('app_srl') and app_srl > 0">
+                AND app_srl = #{app_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srl') and board_srl > 0">
+                AND board_srl = #{board_srl}
+            </if>
+            <if test="_parameter.containsKey('board_srls') and board_srls != null and _parameter.get('board_srls').size > 0">
+                AND board_srl IN
+                <foreach item="item" index="index" collection="board_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('category_name') and category_name != null">
+                AND category_name LIKE CONCAT('', #{category_name}, '%')
+            </if>
+            <if test="_parameter.containsKey('category_type') and category_type > 0">
+                AND category_type = #{category_type}
+            </if>
+            <if test="_parameter.containsKey('enabled') and enabled > 0">
+                AND enabled = #{enabled}
+            </if>
+            <if test="_parameter.containsKey('open_type') and open_type > 0">
+                AND open_type = #{open_type}
+            </if>
+        </where>
+        <choose>
+            <when test="_parameter.containsKey('sort') and sort != null and _parameter.get('sort').size > 0">
+                <foreach item="item" index="key" collection="sort" open="ORDER BY" separator=",">
+                    ${key} ${item}
+                </foreach>
+            </when>
+            <otherwise>
+                ORDER BY category_srl DESC
+            </otherwise>
+        </choose>
+        <if test="_parameter.containsKey('offset') and _parameter.containsKey('limit') and offset >= 0 and limit >= 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countDocumentLink" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT C.category_srl as category_srl, count(1) as cnt
+        FROM (
+            SELECT
+                A.document_link_srl as document_link_srl,
+                A.category_srl as category_srl
+            FROM tbl_document_link A
+            LEFT JOIN tbl_document B
+            ON A.document_srl = B.document_srl
+            <where>
+                <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                    AND A.category_srl = #{category_srl}
+                </if>
+                <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                    AND A.category_srl IN
+                    <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                    AND B.secret = #{secret}
+                </if>
+                <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                    AND B.secret IN
+                    <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="_parameter.containsKey('block') and block > 0">
+                    AND B.block = #{block}
+                </if>
+            </where>
+            ORDER BY A.document_link_srl DESC
+        ) C
+        GROUP BY C.category_srl
+        ORDER BY C.category_srl
+    </select>
+    
+    <select id="countDocument" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT category_srl, count(1) as cnt
+        FROM tbl_document
+        <where>
+            <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                category_srl = #{category_srl}
+            </if>
+            <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                AND category_srl IN
+                <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('secret') and (secret == -2 or secret == -1 or secret > 0)">
+                AND secret = #{secret}
+            </if>
+            <if test="_parameter.containsKey('secrets') and secrets != null and _parameter.get('secrets').size > 0">
+                AND secret IN
+                <foreach item="item" index="index" collection="secrets" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="_parameter.containsKey('block') and block > 0">
+                AND block = #{block}
+            </if>
+        </where>
+        GROUP BY category_srl
+        ORDER BY category_srl
+    </select>
+
+    <update id="modify" parameterType="java.util.Map">
+        <if test="target_category_srl > 0 or target_board_srl > 0">
+            UPDATE tbl_document_category
+            <set>
+                <if test="documentCategoryEntity.app_srl > 0">app_srl = #{documentCategoryEntity.app_srl},</if>
+                <if test="documentCategoryEntity.board_srl > 0">board_srl = #{documentCategoryEntity.board_srl},</if>
+                <if test="documentCategoryEntity.category_name != null">category_name = #{documentCategoryEntity.category_name},</if>
+                <if test="documentCategoryEntity.category_description != null">category_description = #{documentCategoryEntity.category_description},</if>
+                <if test="documentCategoryEntity.category_type > 0">category_type = #{documentCategoryEntity.category_type},</if>
+                <if test="documentCategoryEntity.enabled > 0">enabled = #{documentCategoryEntity.enabled},</if>
+                <if test="documentCategoryEntity.open_type > 0">open_type = #{documentCategoryEntity.open_type},</if>
+                <if test="documentCategoryEntity.c_date > 0">c_date = #{documentCategoryEntity.c_date},</if>
+                <if test="documentCategoryEntity.u_date > 0">u_date = #{documentCategoryEntity.u_date}</if>
+            </set>
+            <where>
+                <if test="target_category_srl > 0">
+                    category_srl = #{target_category_srl}
+                </if>
+                <if test="target_board_srl > 0">
+                    AND board_srl = #{target_board_srl}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <delete id="delete" parameterType="java.util.Map">
+        <if test="(_parameter.containsKey('category_srl') and category_srl > 0) or (_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0)">
+            DELETE FROM tbl_document_category
+            <where>
+                <if test="_parameter.containsKey('category_srl') and category_srl > 0">
+                    category_srl = #{category_srl}
+                </if>
+                <if test="_parameter.containsKey('category_srls') and category_srls != null and _parameter.get('category_srls').size > 0">
+                    AND category_srl IN
+                    <foreach item="item" index="index" collection="category_srls" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+            </where>
+        </if>
+    </delete>
+
+</mapper>
